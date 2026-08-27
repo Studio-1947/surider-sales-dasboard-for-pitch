@@ -136,7 +136,7 @@ body{
 .hl button.exc .body{display:flex; flex-direction:column; min-width:0; flex:1}
 .hl button.exc .s{flex:1}
 .hl .rl{display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
-.hl .rtag{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted)}
+.hl .rtag{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted); white-space:nowrap}
 .hl .go{font-size:11.5px; color:var(--muted); white-space:nowrap}
 .hl button.exc:hover .go{color:var(--accent)}
 .hl button.risk-high{border-left-color:var(--neg); background:color-mix(in srgb,var(--neg) 7%,var(--surface-2))} .hl button.risk-high .hi{color:var(--neg); background:color-mix(in srgb,var(--neg) 14%,var(--surface))} .hl button.risk-high .rtag{color:var(--neg); background:color-mix(in srgb,var(--neg) 14%,var(--surface))}
@@ -2400,7 +2400,7 @@ function drawHighlights(cur, prv, range){
   const HICO = {"Biggest decline":ICO.trend,"Top category":ICO.box,"Leading channel":ICO.chart,"Best-selling product":ICO.tag,"Fastest grower":ICO.trend,"Year on year":ICO.cal,"Strongest state":ICO.pin,"Paid media":ICO.mega,"Repeat buying":ICO.refresh,"Distributor network":ICO.net};
   const EICO = {"Trend broke":ICO.trend,"Below national growth":ICO.map,"Distributors gone dormant":ICO.people,"Campaigns under 3× ROAS":ICO.mega,"Negative sentiment":ICO.chart,"Stock-out risk":ICO.box,"On plan":ICO.cal,"Behind plan":ICO.cal};
   const RISK = {bad:["High","risk-high"], warn:["Medium","risk-med"], good:["Low","risk-low"]};
-  host.innerHTML = items.map(([k,v,s,pg,sev])=>{ const r = RISK[sev]; return `<button type="button" data-pg="${pg}" class="exc ${r?r[1]:"risk-info"}"><span class="hi">${EICO[k]||HICO[k]||ICO.star}</span><div class="body"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div><div class="rl"><span class="rtag">${r?"Risk level: "+r[0]:"Info"}</span><span class="go">Open ${ {overview:"overview",yoy:"YoY",channels:"channels",products:"products",buyers:"buyers",social:"social & ads",geo:"geography",dist:"distributors",table:"table"}[pg]||pg} →</span></div></div></button>`; }).join("");
+  host.innerHTML = items.map(([k,v,s,pg,sev])=>{ const r = RISK[sev]; return `<button type="button" data-pg="${pg}" class="exc ${r?r[1]:"risk-info"}"><span class="hi">${EICO[k]||HICO[k]||ICO.star}</span><div class="body"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div><div class="rl"><span class="rtag" title="${r?"Risk level: "+r[0]:"Standing fact"}">${r?r[0]+" risk":"Info"}</span><span class="go">Open ${ {overview:"overview",yoy:"YoY",channels:"channels",products:"products",buyers:"buyers",social:"social & ads",geo:"geography",dist:"distributors",table:"table"}[pg]||pg} →</span></div></div></button>`; }).join("");
   $("#excNote").textContent = `${items.filter(x=>x[4]==="bad").length} high, ${items.filter(x=>x[4]==="warn").length} medium and ${items.filter(x=>x[4]==="good").length} low-risk exceptions in ${perLabel()}, plus ${items.filter(x=>!x[4]).length} standing facts · thresholds: trend break −10% on 3 months, states 5 pts under national growth, ROAS under 3×, sentiment net below 0, stock cover under 21 days`;
   host.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.pg)));
 }
