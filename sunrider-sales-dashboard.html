@@ -216,13 +216,14 @@ body{
 th .ico{width:12px; height:12px; margin-right:4px; vertical-align:-1px; opacity:.8}
 .tier .ico{width:11px; height:11px; margin-right:4px; vertical-align:-1px; stroke:#fff}
 .dav{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; font-size:10.5px; font-weight:700; color:#fff; margin-right:9px; vertical-align:middle; letter-spacing:.02em}
-.pinsum>div{display:flex; gap:10px; align-items:center} .pinsum>div>div{display:block; min-width:0}
+.pinsum.withico>div{display:flex; gap:10px; align-items:center} .pinsum.withico>div>div{display:block; min-width:0}
 .pinsum{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .pinsum .k{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .pinsum .pi{width:34px; height:34px; border-radius:9px; background:var(--surface); display:grid; place-items:center; color:var(--accent); flex:none}
 .pinsum .pi .ico{width:17px; height:17px; margin:0}
 .tblfoot{font-size:12px; color:var(--muted); padding:8px 2px 0}
-@media(max-width:1150px){.distlay,.pinlay{grid-template-columns:1fr} .distlay>div:first-child,.pinlay>.plot{max-width:480px; margin:0 auto; width:100%}}
+@media(max-width:1150px){.distlay,.pinlay,.maplay{grid-template-columns:1fr} .distlay>div:first-child,.pinlay>.plot,.maplay>#map{max-width:480px; margin:0 auto; width:100%}}
+@media(max-width:1100px){#distTbl th:nth-child(5),#distTbl td:nth-child(5),#distTbl th:nth-child(7),#distTbl td:nth-child(7){display:none} #distState th:nth-child(n+3):nth-child(-n+6),#distState td:nth-child(n+3):nth-child(-n+6){display:none}}
 .pinsum{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
 .pinsum .v{white-space:nowrap}
 #distTbl th,#distTbl td{padding:6px 6px; font-size:12.5px}
@@ -269,15 +270,15 @@ select{
 .spacer{flex:1 1 auto}
 
 /* ---------- kpi ---------- */
-.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:20px;}
-.kpis.k4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(126px,1fr)); gap:12px; margin-bottom:20px;}
+.kpis.k4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 @media(max-width:560px){.kpis{grid-template-columns:1fr}}
 .kpi{
   background:var(--surface); border:1px solid var(--ring); border-radius:12px;
   padding:14px 15px 12px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:2px;
 }
 .kpi .k{font-family:"Google Sans Flex",system-ui,sans-serif; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);}
-.kpi .v{font-size:27px; font-weight:600; letter-spacing:-.02em; line-height:1.15; margin-top:4px;}
+.kpi .v{font-size:clamp(20px,1.9vw,27px); font-weight:600; letter-spacing:-.02em; line-height:1.15; margin-top:4px; white-space:nowrap;}
 .kpi .d{font-size:12.5px; color:var(--ink-2); display:flex; align-items:center; gap:5px; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .kpi .k{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .kpi .d b{font-weight:600; font-variant-numeric:tabular-nums;}
@@ -294,7 +295,8 @@ select{
 }
 .c12{grid-column:span 12} .c7{grid-column:span 7} .c5{grid-column:span 5}
 .c6{grid-column:span 6} .c4{grid-column:span 4} .c8{grid-column:span 8}
-@media(max-width:900px){.c7,.c5,.c6,.c4,.c8{grid-column:span 12}}
+@media(max-width:1100px){.c7,.c5,.c6,.c8{grid-column:span 12} .c4{grid-column:span 6}}
+@media(max-width:700px){.c4{grid-column:span 12}}
 .card h2{font-size:15px; font-weight:600; margin:0; letter-spacing:-.01em;}
 .card .note{font-size:12.5px; color:var(--muted); margin:2px 0 0;}
 .chead{display:flex; flex-wrap:wrap; align-items:flex-start; gap:12px; margin-bottom:12px;}
@@ -324,6 +326,8 @@ table.compact td:first-child{white-space:normal; line-height:1.25}
 table{border-collapse:collapse; width:100%; font-size:13px;}
 th,td{text-align:right; padding:8px 10px; border-bottom:1px solid var(--hair); white-space:nowrap;}
 th:first-child,td:first-child{text-align:left; white-space:normal;}
+#tbl td:first-child{display:flex; align-items:center; gap:0; min-width:180px}
+#tbl td:first-child .dot{flex:none}
 th{
   font-family:"Google Sans Flex",system-ui,sans-serif; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
   color:var(--muted); font-weight:500; cursor:pointer; user-select:none; position:sticky; top:0; background:var(--surface);
@@ -420,7 +424,6 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       <div class="navfilters">
         <select id="chanSel" aria-label="Channel"><option value="-1">All channels</option></select>
         <select id="catSel" aria-label="Category"><option value="-1">All categories</option></select>
-      </div>
       <button class="iconbtn" type="button" title="Notifications" aria-label="Notifications">
         <svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg><span class="badge"></span>
       </button>
@@ -428,6 +431,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
         <span class="opt" data-t="light"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
         <span class="opt" data-t="dark"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></span>
       </button>
+      </div>
      </div>
      <div class="toprow customrow hide" id="customRange">
         <span class="scope"><b>Custom range</b></span>
@@ -593,7 +597,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
     <section class="card c7">
       <div class="chead"><div><h2>Social sentiment</h2><p class="note" id="sentNote"></p></div><div class="spacer"></div><div class="seg mini" role="group" data-local="sentPlat"><button type="button" data-v="-1" aria-pressed="true">All</button><button type="button" data-v="0" aria-pressed="false">Facebook</button><button type="button" data-v="1" aria-pressed="false">Instagram</button><button type="button" data-v="2" aria-pressed="false">YouTube</button><button type="button" data-v="3" aria-pressed="false">X</button></div></div>
       <div class="plot" id="sent"></div>
-      <div class="legend"><span><i style="background:var(--pos)"></i>Positive</span><span><i style="background:var(--axis)"></i>Neutral</span><span><i style="background:var(--neg)"></i>Negative</span></div>
+      <div class="legend"><span><i style="background:var(--pos)"></i>Positive</span><span><i style="background:var(--muted)"></i>Neutral</span><span><i style="background:var(--neg)"></i>Negative</span></div>
     </section>
     <section class="card c5">
       <div class="chead"><div><h2>What people talk about</h2><p class="note">Net sentiment by theme (positive minus negative share) and mentions</p></div></div>
@@ -621,8 +625,13 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
   <div class="grid" style="margin-top:12px">
     <section class="card c12" id="pinCard">
       <div class="chead"><div><h2>Pincode drill-down</h2><p class="note" id="pinNote">Postal boundaries for the metro, shaded by modelled revenue · hover a pincode, click to pin it</p></div><div class="spacer"></div>
-        <div class="locals"><div class="seg mini" role="group" aria-label="Metro" id="pinMetro"></div>
-        <label class="search" style="flex:0 0 190px"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="pinQ" type="search" inputmode="numeric" placeholder="Find a pincode" maxlength="6"></label></div>
+        <div class="locals">
+          <label class="fld">State <select id="pinState" aria-label="State"></select></label>
+          <label class="fld">Metro <select id="pinMetroSel" aria-label="Metro"></select></label>
+          <label class="fld">Pincode <select id="pinSel" aria-label="Pincode"><option value="">All pincodes</option></select></label>
+          <div class="seg mini hide" id="pinMetro"></div>
+          <label class="search" style="flex:0 0 170px"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="pinQ" type="search" inputmode="numeric" placeholder="Find any pincode" maxlength="6"></label>
+        </div>
       </div>
       <div class="maplay pinlay">
         <div class="plot" id="pinMap"></div>
@@ -641,7 +650,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       </div>
       <div class="maplay distlay">
         <div><div class="plot" id="distMap"></div><div class="legend" id="distLeg"></div></div>
-        <div><div class="pinsum" id="distSum"></div><div class="tblwrap" style="max-height:560px;overflow:auto"><table id="distTbl" class="compact"><thead></thead><tbody></tbody></table></div><div class="tblfoot" id="distFoot"></div></div>
+        <div><div class="pinsum withico" id="distSum"></div><div class="tblwrap" style="max-height:560px;overflow:auto"><table id="distTbl" class="compact"><thead></thead><tbody></tbody></table></div><div class="tblfoot" id="distFoot"></div></div>
       </div>
     </section>
     <section class="card c12">
@@ -1064,8 +1073,8 @@ function drawDemo(cur){
   const isOrd = L.geoMet==="ord", vals = isOrd ? d.cityOrd : d.cities, fmtV = isOrd ? fmtN : fmtC;
   const cityTot = vals.reduce((a,b)=>a+b,0)||1;
   const items = DATA.cities.map((l,i)=>({label:l, v:vals[i], unit:isOrd?"Orders":"Revenue"})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v).slice(0, L.geoN);
-  hbars($("#cities"), items, ()=>"--bar", v=>fmtV(v), cityTot, (isOrd?"Orders":"Revenue")+" by market");
   drawMap(d);
+  hbars($("#cities"), items, ()=>"--bar", v=>fmtV(v), cityTot, (isOrd?"Orders":"Revenue")+" by market");
   const pr_ = prevRange(S.per); drawDistributors(d, pr_ ? aggDemo(pr_) : null);
 }
 
@@ -1407,7 +1416,7 @@ function drawSentiment(range, prv){
   [0,25,50,75,100].forEach(t=>{ const y=M.t+ih-t/100*ih; g.push(e("line",{x1:M.l,x2:W-M.r,y1:y,y2:y,style:"stroke:var(--hair)"})); g.push(e("text",{x:M.l-8,y:y+4,"text-anchor":"end",style:"fill:var(--muted);font-size:11px"},[txt(t+"%")])); });
   months.forEach((x,i)=>{
     const cx=M.l+(i+0.5)/labels.length*iw, X=cx-bw/2, tot=x.m||1; let y=M.t+ih;
-    [["n","--neg","Negative"],["u","--axis","Neutral"],["p","--pos","Positive"]].forEach(([key,col,lab])=>{
+    [["n","--neg","Negative"],["u","--muted","Neutral"],["p","--pos","Positive"]].forEach(([key,col,lab])=>{
       const hh=x[key]/tot*ih; y-=hh;
       const r=e("rect",{x:X,y,width:bw,height:Math.max(0,hh-1),style:`fill:var(${col})`});
       r.addEventListener("mousemove",ev=>tipShow(`<span class="t">${labels[i]}</span>`+tipRow("Mentions",fmtN(x.m))+tipRow("Positive",fmtP(pct(x.p,tot)))+tipRow("Neutral",fmtP(pct(x.u,tot)))+tipRow("Negative",fmtP(pct(x.n,tot)))+tipRow("Net",((x.p-x.n)/tot*100).toFixed(1)),ev));
@@ -1421,7 +1430,7 @@ function drawSentiment(range, prv){
     const n_=(x.p-x.n)/(x.m||1)*100, el=document.createElement("div"); el.className="row";
     el.innerHTML=`<div class="nm"><span class="pl" style="background:${["#1877f2","#e1306c","#ff0000","#111"][k]}"></span>${SP[k]}</div>
       <div class="vl"><b class="${n_>=0?"up":"down"}">${n_>=0?"+":""}${n_.toFixed(0)}</b> net</div><div class="sub">${fmtN(x.m)} mentions · ${fmtP(pct(x.p,x.m))} positive · ${fmtP(pct(x.n,x.m))} negative</div>
-      <div class="track" style="background:linear-gradient(90deg,var(--neg) ${pct(x.n,x.m).toFixed(1)}%,var(--axis) ${pct(x.n,x.m).toFixed(1)}% ${pct(x.n+x.u,x.m).toFixed(1)}%,var(--pos) ${pct(x.n+x.u,x.m).toFixed(1)}%)"></div>`;
+      <div class="track" style="background:linear-gradient(90deg,var(--neg) ${pct(x.n,x.m).toFixed(1)}%,var(--muted) ${pct(x.n,x.m).toFixed(1)}% ${pct(x.n+x.u,x.m).toFixed(1)}%,var(--pos) ${pct(x.n+x.u,x.m).toFixed(1)}%)"></div>`;
     pc.appendChild(el);
   });
   const th_=$("#themes"); th_.innerHTML=`<p class="note" style="margin:0 0 4px">Themes</p>`;
@@ -1587,12 +1596,21 @@ function pinModel(metro, cityIdx){
 }
 function drawPins(){
   const host = $("#pinMap"), side = $("#pinSide"), note = $("#pinNote"), seg = $("#pinMetro");
-  if (!seg.children.length){
-    DATA.cities.slice(0,9).forEach(c=>{ const b=document.createElement("button"); b.type="button"; b.textContent=c; b.dataset.m=c; b.setAttribute("aria-pressed", c===PIN.metro);
-      b.addEventListener("click",()=>{ PIN.metro=c; PIN.sel=null; drawPins(); }); seg.appendChild(b); });
+  const stSel=$("#pinState"), mSel=$("#pinMetroSel"), pSel=$("#pinSel");
+  const metros = DATA.cities.slice(0,9), metroState = m => STATES[CST[DATA.cities.indexOf(m)]];
+  if (!stSel.children.length){
+    [...new Set(metros.map(metroState))].forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s; stSel.appendChild(o); });
+    stSel.addEventListener("change",()=>{ PIN.metro = metros.find(m=>metroState(m)===stSel.value); PIN.sel=null; drawPins(); });
+    mSel.addEventListener("change",()=>{ PIN.metro = mSel.value; PIN.sel=null; drawPins(); });
+    pSel.addEventListener("change",()=>{ PIN.sel = pSel.value || null; drawPins(); });
     $("#pinQ").addEventListener("input", ev=>{ const q=ev.target.value.trim(); if (q.length===6) pinFind(q); });
   }
-  seg.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.m===PIN.metro));
+  stSel.value = metroState(PIN.metro);
+  mSel.innerHTML = metros.filter(m=>metroState(m)===stSel.value).map(m=>`<option value="${m}"${m===PIN.metro?" selected":""}>${m}</option>`).join("");
+  if (PIN.data && !PIN.failed){
+    const list = PIN.data.metros[PIN.metro].pins;
+    pSel.innerHTML = `<option value="">All pincodes (${list.length})</option>` + list.map(p=>`<option value="${p.p}"${p.p===PIN.sel?" selected":""}>${p.p} · ${p.o}</option>`).join("");
+  }
   if (PIN.failed){ host.innerHTML=""; side.innerHTML=""; note.textContent="Pincode boundaries could not be loaded. Serve the folder over http (python3 -m http.server 8081) so pincodes.json can be fetched."; return; }
   if (!PIN.data){ note.textContent="Loading pincode boundaries…"; return; }
   if (!LASTD) return;
@@ -1627,7 +1645,7 @@ function drawPins(){
   top10.forEach(r=>{ const el=document.createElement("div"); el.className="row clickable"+(PIN.sel===r.p.p?" on":"");
     el.innerHTML=`<div class="nm">${r.p.p}</div><div class="vl">${fmtV(val(r))} <span style="color:var(--muted);font-weight:400">· ${fmtP(pct(val(r),tot))}</span></div><div class="sub">${r.p.o} · ${r.p.d}</div><div class="track"><div class="fill" style="width:${(val(r)/max*100).toFixed(1)}%"></div></div>`;
     el.addEventListener("click",()=>{ PIN.sel = PIN.sel===r.p.p ? null : r.p.p; drawPins(); }); pr.appendChild(el); });
-  note.textContent = `${PIN.metro} · ${rows.length} postal pincodes shaded by modelled ${lab.toLowerCase()} · hover a pincode, click to pin it, or search any Indian pincode`;
+  note.textContent = `${PIN.metro}, ${metroState(PIN.metro)} · ${rows.length} postal pincodes shaded by modelled ${lab.toLowerCase()} · pick a state, metro and pincode above, click the map, or search any Indian pincode`;
 }
 function pinFind(q){
   if (!PIN.data) return;
