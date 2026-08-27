@@ -6,4 +6,18 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - `data.json` - the same dataset in a standalone file (also embedded in the HTML as `DATA`)
 - `india-states.svg` - India state outlines used for the geography map (Simplemaps, free for commercial use; attribution appreciated)
 
-Features: period / region (state) / channel / category filters, KPIs with prior-period deltas, revenue trend with prior-period overlay, sales-channel stack (direct, membership, WhatsApp, affiliate), category × channel heatmap, product ranking with catalogue images, momentum movers, buyer profile, choropleth pin map, sortable and searchable product table. Typeface: Google Sans Flex.
+## What is in it
+
+- Two fiscal years of modelled data: FY2025 (Apr 2024 - Mar 2025, mock prior year) and FY2026 (Apr 2025 - Mar 2026). Every comparison is year-on-year against the same period.
+- Sticky header: India + state selector, product search, theme capsule; second row with fiscal year, Full year / Q1-Q4 / Custom month range.
+- Left sidebar navigation with scroll-spy and the signed-in profile.
+- Overview KPIs, monthly trend with prior-year overlay.
+- Sales channels (direct sale, membership, WhatsApp, affiliate): stacked chart, mix, category x channel heatmap.
+- Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
+- Buyers: new vs repeat, age and gender.
+- Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, campaigns table, brand sentiment by platform and theme.
+- Geography: state choropleth with metro pins, sortable city bars.
+- Sortable, searchable product table.
+- Every large card has its own local filters; global filters show as removable chips.
+
+Typeface: Google Sans Flex. Light theme by default.
