@@ -135,7 +135,8 @@ body{
 .hl button.exc{border-left:4px solid var(--hair); padding-left:12px; align-items:stretch}
 .hl button.exc .body{display:flex; flex-direction:column; min-width:0; flex:1}
 .hl button.exc .s{flex:1}
-.hl .rl{display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
+.hl .rl{display:flex; justify-content:space-between; align-items:center; gap:6px 10px; margin-top:8px; padding-top:8px; border-top:1px solid color-mix(in srgb,var(--hair) 70%,transparent); flex-wrap:wrap}
+.hl button.act .go{font-weight:600; color:var(--ink)}
 .hl .rtag{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted); white-space:nowrap}
 .hl .go{font-size:11.5px; color:var(--muted); white-space:nowrap}
 .hl button.exc:hover .go{color:var(--accent)}
@@ -143,6 +144,10 @@ body{
 .hl button.risk-med{border-left-color:var(--s4); background:color-mix(in srgb,var(--s4) 9%,var(--surface-2))} .hl button.risk-med .hi{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl button.risk-med .rtag{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))}
 .hl button.risk-low{border-left-color:var(--pos)} .hl button.risk-low .hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl button.risk-low .rtag{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))}
 .hl button.risk-info{border-left-color:var(--axis)} .hl button.risk-info .hi{color:var(--accent)}
+.hl button.act{border-left-color:var(--accent); cursor:default} .hl button.act .hi{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.hl button.act .v{color:var(--accent)} .hl .why{font-size:12px; color:var(--ink-2); margin-top:4px} .hl .do{font-size:12.5px; color:var(--ink); margin-top:6px; font-weight:500}
+.hl .conf{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted); white-space:nowrap}
+.hl .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl .conf.lo{color:var(--muted)}
 .pop{position:fixed; z-index:40; background:var(--surface); border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 32px -12px rgba(0,0,0,.4); padding:8px; width:240px;}
 .pop .who{display:flex; gap:10px; align-items:center; padding:8px 8px 10px; border-bottom:1px solid var(--hair); margin-bottom:6px;}
 .pop button{all:unset; box-sizing:border-box; display:flex; gap:10px; align-items:center; width:100%; padding:8px 10px; border-radius:8px; font-size:13.5px; cursor:pointer; color:var(--ink);}
@@ -217,6 +222,17 @@ body{
 .ctag.diamond{background:#6a3fd1;color:#fff} .ctag.gold{background:#d4a017;color:#fff} .ctag.silver{background:#8a94a6;color:#fff} .ctag.bronze{background:#b5651d;color:#fff}
 .funnel{display:flex; flex-direction:column; gap:2px; margin-top:6px} .funnel i{display:block; height:5px; border-radius:3px; background:var(--s1); opacity:.85} .funnel i:nth-child(2){background:var(--s3)} .funnel i:nth-child(3){background:var(--s4)} .funnel i:nth-child(4){background:var(--s2)}
 .ctable th{white-space:nowrap}
+/* larger catalogue imagery on the Products page */
+#page-products .row.prow{grid-template-columns:64px 1fr auto; gap:4px 14px}
+#page-products .row.prow .th{width:64px; height:64px; border-radius:10px; font-size:15px}
+#page-products .cthumb{flex-direction:column; align-items:stretch; gap:8px}
+#page-products .cthumb .th{width:100%; height:120px; border-radius:10px; font-size:22px; background:#fff}
+#page-products .cthumb .th img{object-fit:contain; padding:6px}
+#page-products .cthumb h4{white-space:normal}
+#page-products .ccards{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+#page-products .tth{width:44px; height:44px; border-radius:8px; font-size:12px}
+#page-products .mv{grid-template-columns:52px 1fr 84px} #page-products .mv .th{width:52px; height:52px; border-radius:9px; font-size:13px}
+#page-products .ccard .ct{order:2}
 .chead h2 .ctag{margin-left:8px; vertical-align:2px}
 /* ---------- heatmap ---------- */
 .heat{display:grid; gap:4px; font-size:12.5px; margin-top:6px; overflow-x:auto;}
@@ -578,6 +594,22 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       <div class="hl" id="highlights"></div>
     </section>
   </div>
+  <div class="sechead" style="margin-top:22px"><h2>Predictions &amp; operational assistance</h2><p>What the next three months look like and what to do about it · modelled forecasts, labelled with confidence</p></div>
+  <div class="grid">
+    <section class="card c7">
+      <div class="chead"><div><h2 id="fcTitle">Next 3 months forecast</h2><p class="note" id="fcNote"></p></div><div class="spacer"></div><div class="seg mini" role="group" data-local="fcMet"><button type="button" data-v="rev" aria-pressed="true">Revenue</button><button type="button" data-v="ord" aria-pressed="false">Orders</button><button type="button" data-v="completed" aria-pressed="false">Completed</button></div></div>
+      <div class="plot" id="forecast"></div>
+      <div class="legend" id="fcLeg"></div>
+    </section>
+    <section class="card c5">
+      <div class="chead"><div><h2>Forecast summary</h2><p class="note">Point forecast, range and how it compares with plan</p></div></div>
+      <div class="rows" id="fcRows"></div>
+    </section>
+    <section class="card c12">
+      <div class="chead"><div><h2>Recommended actions</h2><p class="note" id="actNote">Ranked by estimated rupee impact · each card says why, what to do, and how confident the estimate is</p></div></div>
+      <div class="hl" id="actions"></div>
+    </section>
+  </div>
 
   </section>
 <section class="page" data-page="yoy" id="page-yoy">
@@ -887,7 +919,7 @@ const fmtP = v => v.toFixed(1) + "%";
 
 /* ---------- state ---------- */
 let LASTD = null;
-const L = { ordMode:"count", contribSort:"contrib", covSort:"gap", yoyBy:"abs", distAll:false, ageMet:"v", yoyMet:"rev", distTier:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
+const L = { fcMet:"rev", ordMode:"count", contribSort:"contrib", covSort:"gap", yoyBy:"abs", distAll:false, ageMet:"v", yoyMet:"rev", distTier:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
 const S = { fy: 1, per: "Y", from: 12, to: 23, cat: -1, state: -1, chan: -1, metric: "rev", metrics: new Set(["rev"]), sortKey: "rev", sortDir: -1, table: true, q: "", hide: new Set() };
 const NM = DATA.monthLabels, CATS = DATA.categories, PRODS = DATA.products;
 const STATES = DATA.states, CHANS = DATA.channels, CST = DATA.cityState;
@@ -912,7 +944,7 @@ function fac(mi,ci){
 }
 function thumb(pi, cls){
   const p = PRODS[pi];
-  if (p.img) return `<span class="${cls}"><img loading="lazy" alt="${p.n}" src="${DATA.imgBase}${p.img}?w=120&h=120&fit=pad&fm=webp&q=80"></span>`;
+  if (p.img) return `<span class="${cls}"><img loading="lazy" alt="${p.n}" src="${DATA.imgBase}${p.img}?w=240&h=240&fit=pad&fm=webp&q=85"></span>`;
   const ini = p.n.replace(/\(.*?\)/g,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
   return `<span class="${cls}" role="img" aria-label="${p.n}" title="${p.n}" style="background:color-mix(in srgb, var(${SERIES[p.c]}) 14%, var(--surface));color:var(${SERIES[p.c]})">${ini}</span>`;
 }
@@ -1382,6 +1414,82 @@ function drawOrderState(cur, range){
   host.innerHTML=""; host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":"Completed and cancelled orders by month with abandoned carts"},g));
   $("#orderStateLeg").innerHTML=`<span><i style="background:var(--s6)"></i>Completed${isRev?" revenue":""}</span><span><i style="background:var(--s8)"></i>Cancelled${isRev?" revenue":""}</span><span style="${isRev?"opacity:.45":""}"><i style="background:var(--s4);height:2px;border-radius:1px"></i>Abandoned carts${isRev?" (orders view only)":" (own scale)"}</span>`;
   $("#orderStateNote").textContent = isRev ? `Revenue kept ${fmtC(cur.completedRev)} against ${fmtC(cur.cancelledRev)} lost to cancellations · cancel rate ${fmtP(pct(cur.cancelled,cur.ord))}, abandon rate ${fmtP(pct(cur.abandoned,cur.carts))}` : `Completed and cancelled orders, abandoned carts as a line · cancel rate ${fmtP(pct(cur.cancelled,cur.ord))}, abandon rate ${fmtP(pct(cur.abandoned,cur.carts))}`;
+}
+
+/* ---------- predictions: forecast + recommended actions ---------- */
+function forecastSeries(get, hi){
+  /* history = all months up to the end of the range; seasonal index from the same month a year earlier; trend fitted on deseasonalised values */
+  const hist = agg([0, hi]).months.map(get), n = hist.length;
+  const last12 = hist.slice(Math.max(0,n-12)), prior12 = hist.slice(Math.max(0,n-24), Math.max(0,n-12));
+  const avgPrior = prior12.length ? prior12.reduce((a,b)=>a+b,0)/prior12.length : 0;
+  const seas = i => (prior12.length===12 && avgPrior) ? (prior12[i%12]/avgPrior) : 1;
+  const des = last12.map((v,i)=>v/(seas((n-12+i)%12)||1));
+  const m = des.length, mean = des.reduce((a,b)=>a+b,0)/(m||1), xm=(m-1)/2;
+  const slope = m>1 ? des.reduce((s,v,i)=>s+(i-xm)*(v-mean),0)/des.reduce((s,v,i)=>s+(i-xm)*(i-xm),0) : 0;
+  const resid = des.map((v,i)=>v-(mean+slope*(i-xm))), sd = Math.sqrt(resid.reduce((a,b)=>a+b*b,0)/Math.max(1,m-2));
+  const out = [0,1,2].map(k=>{ const i=m+k, base=Math.max(0, mean+slope*(i-xm)), s=seas((n+k)%12); return {mi:hi+k, point: base*s, lo: Math.max(0,(base-1.28*sd)*s), hi: (base+1.28*sd)*s, actual: hi+k<24 ? hist[hi+k] : null}; });
+  return {hist:last12, out, slopePct: mean? slope/mean*100 : 0, sd, cv: mean? sd/mean : 1};
+}
+const monthLabelAfter = mi => { if (mi<24) return NM[mi]; const k=mi-24, mon=["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"]; return mon[k%12]+" "+(26+Math.floor((k+9)/12)); };
+function drawForecast(cur, range){
+  const [lo,hi]=range, met=METRICS[L.fcMet], f=forecastSeries(met.get, hi), host=$("#forecast");
+  const labels = [...Array(f.hist.length)].map((_,i)=>monthLabelAfter(hi-f.hist.length+i)).concat(f.out.map(o=>monthLabelAfter(o.mi)));
+  const W=Math.max(320,host.clientWidth), H=260, M={t:14,r:14,b:28,l:64}, iw=W-M.l-M.r, ih=H-M.t-M.b, N=labels.length;
+  const top = niceTicks(Math.max(...f.hist, ...f.out.map(o=>o.hi), 1)*1.06).slice(-1)[0], sx=i=>M.l+i/(N-1)*iw, sy=v=>M.t+ih-v/top*ih, g=[];
+  niceTicks(top).forEach(t=>{ g.push(e("line",{x1:M.l,x2:W-M.r,y1:sy(t),y2:sy(t),style:"stroke:var(--hair)"})); g.push(e("text",{x:M.l-10,y:sy(t)+4,"text-anchor":"end",style:"fill:var(--muted);font-size:11px"},[txt(met.axis(t))])); });
+  const hN=f.hist.length; g.push(e("rect",{x:sx(hN-1),y:M.t,width:sx(N-1)-sx(hN-1),height:ih,style:"fill:var(--surface-2);opacity:.6"}));
+  g.push(e("text",{x:sx(hN-1)+6,y:M.t+12,style:"fill:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase"},[txt("forecast")]));
+  const band = f.out.map((o,k)=>(k?"L":"M")+sx(hN-1+k+1)+" "+sy(o.hi)).join(" ")+" "+f.out.slice().reverse().map(o=>"L "+sx(hN+f.out.indexOf(o))+" "+sy(o.lo)).join(" ")+" Z";
+  const bandPath = "M "+sx(hN-1)+" "+sy(f.hist[hN-1])+" "+f.out.map((o,k)=>"L "+sx(hN+k)+" "+sy(o.hi)).join(" ")+" "+f.out.slice().reverse().map((o,k)=>"L "+sx(hN+f.out.length-1-k)+" "+sy(o.lo)).join(" ")+" Z";
+  g.push(e("path",{d:bandPath,style:"fill:var(--s1);opacity:.14"}));
+  g.push(e("path",{d:f.hist.map((v,i)=>(i?"L":"M")+sx(i).toFixed(1)+" "+sy(v).toFixed(1)).join(" "),style:"fill:none;stroke:var(--s1);stroke-width:2.2;stroke-linejoin:round"}));
+  g.push(e("path",{d:"M "+sx(hN-1)+" "+sy(f.hist[hN-1])+" "+f.out.map((o,k)=>"L "+sx(hN+k)+" "+sy(o.point)).join(" "),style:"fill:none;stroke:var(--s1);stroke-width:2.2;stroke-dasharray:6 4"}));
+  f.hist.forEach((v,i)=>{ const c=e("circle",{cx:sx(i),cy:sy(v),r:3.5,style:"fill:var(--s1);stroke:var(--surface);stroke-width:2"}); c.addEventListener("mousemove",ev=>tipShow(`<span class="t">${labels[i]}</span>`+tipRow("Actual",met.fmt(v)),ev)); c.addEventListener("mouseleave",tipHide); g.push(c); });
+  f.out.forEach((o,k)=>{ const c=e("circle",{cx:sx(hN+k),cy:sy(o.point),r:4,style:"fill:var(--surface);stroke:var(--s1);stroke-width:2.2"}); c.addEventListener("mousemove",ev=>tipShow(`<span class="t">${labels[hN+k]} · forecast</span>`+tipRow("Point",met.fmt(Math.round(o.point)))+tipRow("Range",met.fmt(Math.round(o.lo))+" – "+met.fmt(Math.round(o.hi)))+(o.actual!==null?tipRow("Actual on file",met.fmt(o.actual)):""),ev)); c.addEventListener("mouseleave",tipHide); g.push(c);
+    if (o.actual!==null) g.push(e("circle",{cx:sx(hN+k),cy:sy(o.actual),r:3.5,style:"fill:var(--s2);stroke:var(--surface);stroke-width:2"})); });
+  labels.forEach((l,i)=>{ if (i<hN && (i % (W<560?4:2))) return; g.push(e("text",{x:sx(i),y:H-8,"text-anchor":"middle",style:`fill:${i>=hN?"var(--ink-2)":"var(--muted)"};font-size:11px;${i>=hN?"font-weight:600":""}`},[txt(i>=hN ? l.split(" ")[0] : l)])); });
+  host.innerHTML=""; host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":"Three-month forecast with confidence band"},g));
+  $("#fcLeg").innerHTML=`<span><i style="background:var(--s1)"></i>Actual</span><span><i style="background:var(--s1);height:2px;border-radius:1px"></i>Forecast (point)</span><span><i style="background:var(--s1);opacity:.25"></i>80% range</span>`+(f.out.some(o=>o.actual!==null)?`<span><i style="background:var(--s2)"></i>Actual already on file</span>`:"");
+  const tot=f.out.reduce((a,o)=>a+o.point,0), lo3=f.out.reduce((a,o)=>a+o.lo,0), hi3=f.out.reduce((a,o)=>a+o.hi,0), conf = f.cv<0.08?"High":f.cv<0.16?"Medium":"Low";
+  $("#fcTitle").textContent = `${met.label.replace(" by month","")} · next 3 months (${monthLabelAfter(hi)} – ${monthLabelAfter(hi+2)})`;
+  $("#fcNote").textContent = `Trend ${f.slopePct>=0?"+":"−"}${Math.abs(f.slopePct).toFixed(1)}% a month on deseasonalised values, last year's seasonality applied · ${conf.toLowerCase()} confidence (month-to-month noise ${fmtP(f.cv*100)})`;
+  /* summary rows */
+  const rows=$("#fcRows"); rows.innerHTML="";
+  const lastQ = f.hist.slice(-3).reduce((a,b)=>a+b,0), planQ = (S.fy===1 && hi===24) ? lastQ*1.22 : null;
+  const items=[["Next 3 months (point)", met.fmt(Math.round(tot)), `range ${met.fmt(Math.round(lo3))} – ${met.fmt(Math.round(hi3))}`],["Versus the last 3 months", (tot>=lastQ?"+":"−")+fmtP(Math.abs(tot-lastQ)/(lastQ||1)*100), `${met.fmt(Math.round(lastQ))} in ${labels[hN-3]} – ${labels[hN-1]}`]];
+  if (planQ) items.push(["Versus a +22% plan", tot>=planQ?"On track":"Short by "+met.fmt(Math.round(planQ-tot)), `plan ${met.fmt(Math.round(planQ))} for the quarter`]);
+  items.push(["Best and worst month", `${labels[hN+f.out.indexOf(f.out.slice().sort((a,b)=>b.point-a.point)[0])]} / ${labels[hN+f.out.indexOf(f.out.slice().sort((a,b)=>a.point-b.point)[0])]}`, "seasonality from the same months last year"],["Confidence", conf, f.cv<0.08?"steady series, narrow band":f.cv<0.16?"some noise, read the range not the point":"volatile series, treat as directional"]);
+  items.forEach(([k,v,s])=>{ const el=document.createElement("div"); el.className="row"; el.innerHTML=`<div class="nm">${k}</div><div class="vl">${v}</div><div class="sub">${s}</div>`; rows.appendChild(el); });
+}
+function drawActions(cur, prv, range){
+  const [lo,hi]=range, host=$("#actions"), acts=[], monthsN=hi-lo, aov=cur.aov||4000;
+  /* 1. stock-outs */
+  const top12=[...cur.byProd.entries()].sort((a,b)=>b[1].rev-a[1].rev).slice(0,12).map(([pi,v])=>({pi,v,days:PRODS[pi].stock,perMonth:v.uni/monthsN})).filter(x=>x.days<45).sort((a,b)=>a.days-b.days);
+  if (top12.length){ const lost=top12.reduce((a,x)=>a+Math.max(0,(45-x.days)/30)*x.perMonth*(x.v.rev/(x.v.uni||1)),0);
+    acts.push({t:"Predicted stock-outs", v:`${top12.length} top SKU${top12.length>1?"s":""} run dry within 45 days`, why:top12.map(x=>`${PRODS[x.pi].n} in ${x.days} d`).join(" · "), do:`Reorder now: ${top12.map(x=>`${PRODS[x.pi].n} ${fmtN(Math.round(x.perMonth*2))} units`).join(", ")} (two months of cover)`, impact:lost, conf:"hi", ico:ICO.box}); }
+  /* 2. cart recovery */
+  if (cur.abandoned>0){ const rec=cur.abandoned*0.08*aov; acts.push({t:"Abandoned-cart recovery", v:`${fmtN(cur.abandoned)} carts left without checkout`, why:`abandon rate ${fmtP(pct(cur.abandoned,cur.carts))} · an 8% recovery rate on ${fmtC(aov,true)} baskets`, do:"Send WhatsApp reminders 1 h and 24 h after abandonment with a small first-order incentive; measure recovery weekly", impact:rec, conf:"md", ico:ICO.refresh}); }
+  /* 3. ad budget shift */
+  const ads=aggAds(range), weak=ads.camps.filter(c=>c.spend>0&&c.rev/c.spend<2.5), strong=ads.camps.filter(c=>c.spend>0&&c.rev/c.spend>=4);
+  if (weak.length&&strong.length){ const move=weak.reduce((a,c)=>a+c.spend,0)*0.5, rW=weak.reduce((a,c)=>a+c.rev,0)/weak.reduce((a,c)=>a+c.spend,0), rS=strong.reduce((a,c)=>a+c.rev,0)/strong.reduce((a,c)=>a+c.spend,0), gain=move*(rS*0.8-rW);
+    acts.push({t:"Reallocate ad budget", v:`Move ${fmtC(move)} from ${weak.length} weak campaign${weak.length>1?"s":""}`, why:`${weak.map(c=>c.n+" "+(c.rev/c.spend).toFixed(1)+"×").join(" · ")} vs ${strong.map(c=>c.n+" "+(c.rev/c.spend).toFixed(1)+"×").join(" · ")}`, do:`Cut half of ${weak.map(c=>c.n).join(" and ")}; add it to ${strong.map(c=>c.n).join(" and ")} with frequency caps, assuming returns soften 20% as they scale`, impact:gain, conf:"md", ico:ICO.mega}); }
+  /* 4. distributors likely to go dormant */
+  const DS=DATA.distributors.filter(x=>S.state<0||x.s===S.state), tail=[hi-3,hi-2,hi-1].filter(m=>m>=0&&m<24);
+  const risky=DS.filter(x=>{ const act=tail.filter(m=>x.act[m]==="1").length; const before=x.act.slice(Math.max(0,hi-9),Math.max(0,hi-3)); return act===1 && (before.match(/1/g)||[]).length>=4; }).sort((a,b)=>b.team-a.team);
+  if (risky.length){ const d=aggDemo(range), stRev=new Array(STATES.length).fill(0); d.cities.forEach((v,i)=>stRev[CST[i]]+=v); const wSum=new Array(STATES.length).fill(0); DATA.distributors.forEach(x=>wSum[x.s]+=x.w); const atRisk=risky.reduce((a,x)=>a+stRev[x.s]*x.w/(wSum[x.s]||1),0);
+    acts.push({t:"Distributors about to go quiet", v:`${risky.length} active only once in the last 3 months`, why:risky.slice(0,4).map(x=>`${x.n} (${DATA.tiers[x.t]}, team ${x.team})`).join(" · "), do:"Sponsor call this week, restock offer and a 30-day activity target; flag to the state lead", impact:atRisk*0.6, conf:"md", ico:ICO.people}); }
+  /* 5. customer win-back */
+  if (prv){ const c=aggChan(range), m=custModel(range,c), pm=custModel(prevRange(S.per),aggChan(prevRange(S.per))), lapsed=Math.max(0,pm.active-m.retained); if (lapsed>0) acts.push({t:"Win back lapsed customers", v:`${fmtN(lapsed)} customers bought last year but not this period`, why:`a 12% reactivation rate on ${fmtC(aov,true)} baskets · Membership customers re-order 3× more than paid-traffic ones`, do:"Membership re-enrolment offer to lapsed members first, then a WhatsApp win-back sequence for the rest", impact:lapsed*0.12*aov, conf:"md", ico:ICO.person}); }
+  /* 6. expansion picks */
+  { const d=aggDemo(range), HH=DATA.households, stRev=new Array(STATES.length).fill(0); d.cities.forEach((v,i)=>stRev[CST[i]]+=v); const tot=stRev.reduce((a,b)=>a+b,0)||1, tH=HH.reduce((a,b)=>a+b,0);
+    const picks=STATES.map((s,i)=>({s,gap:(HH[i]/tH)*tot-stRev[i],dist:DATA.distributors.filter(x=>x.s===i).length,hh:HH[i]})).filter(x=>x.gap>0&&x.dist<=6&&(S.state<0||STATES[S.state]===x.s)).sort((a,b)=>b.gap-a.gap).slice(0,2);
+    if (picks.length) acts.push({t:"Where to recruit next", v:picks.map(x=>x.s).join(" and "), why:picks.map(x=>`${x.s}: ${fmtC(x.gap)} below par with ${x.dist} distributors for ${fmtN(x.hh)}k households`).join(" · "), do:`Recruit ${picks.map(x=>`${Math.max(3,Math.round(x.hh/4000))} distributors in ${x.s}`).join(" and ")}; expect a third of the gap in year one`, impact:picks.reduce((a,x)=>a+x.gap,0)/3, conf:"lo", ico:ICO.map}); }
+  /* 7. price / cancellation */
+  if (cur.cancelled>0){ const save=cur.cancelledRev*0.3; acts.push({t:"Cut cancellations", v:`${fmtN(cur.cancelled)} orders cancelled (${fmtP(pct(cur.cancelled,cur.ord))})`, why:`${fmtC(cur.cancelledRev)} of revenue reversed · confirmation-call and prepaid-discount pilots typically remove a third`, do:"Auto-confirm COD orders on WhatsApp within 10 minutes; offer 3% off for prepaid; ship within 24 h on the top 12 SKUs", impact:save, conf:"md", ico:ICO.cal}); }
+  acts.sort((a,b)=>b.impact-a.impact);
+  const total=acts.reduce((a,x)=>a+x.impact,0);
+  $("#actNote").textContent = `${acts.length} actions worth an estimated ${fmtC(total)} in ${perLabel()} terms · impacts are modelled (recovery, reactivation and reallocation rates are assumptions to validate) · ranked by rupee impact`;
+  host.innerHTML = acts.map(a=>`<button type="button" class="exc act"><span class="hi">${a.ico}</span><div class="body"><div class="k">${a.t}</div><div class="v">${a.v}</div><div class="why">${a.why}</div><div class="do">→ ${a.do}</div><div class="rl"><span class="conf ${a.conf}">Confidence: ${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] }</span><span class="go">≈ ${fmtC(a.impact)} impact</span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
 }
 
 /* ---------- year-on-year comparison ---------- */
@@ -2273,6 +2381,8 @@ function render(){
   drawPlan(cur, range);
   drawDecomp(cur, prv, range);
   drawHighlights(cur, prv, range);
+  drawForecast(cur, range);
+  drawActions(cur, prv, range);
   drawYoY();
   drawWaterfallAndStock();
   drawContribution(cur, range);
