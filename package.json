@@ -1,0 +1,7 @@
+{
+  "name": "sunrider-sales-desk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sunrider India Sales Desk, a static dashboard with a Vercel Edge Middleware password gate",
+  "license": "UNLICENSED"
+}
