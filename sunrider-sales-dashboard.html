@@ -443,8 +443,6 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
 
   <div class="controls" style="padding:10px 0 6px">
     <span class="scope" id="scopeLbl"></span>
-    <div class="spacer"></div>
-    <button class="ghost" id="tblBtn" type="button" aria-pressed="false">Table view</button>
   </div>
   <div class="chips" id="chips"></div>
 
@@ -1717,8 +1715,6 @@ document.querySelectorAll("[data-met]").forEach(b => b.addEventListener("click",
   document.querySelectorAll("[data-met]").forEach(x=>x.setAttribute("aria-pressed", x===b));
   const range = rangeFor(S.per), pr = prevRange(S.per); drawTrend(agg(range), range, pr?agg(pr):null);
 }));
-const tblBtn = $("#tblBtn");
-tblBtn.addEventListener("click", ()=>showPage("table"));
 $("#srch").addEventListener("input", ev=>{ S.q = ev.target.value; if (S.q && CUR_PAGE!=="table") showPage("table"); else { drawTable(agg(rangeFor(S.per))); drawChips(); } });
 $("#distQ").addEventListener("input", ev=>{ L.distQ = ev.target.value; render(); });
 /* local per-card filters */
