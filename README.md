@@ -14,7 +14,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Left sidebar switches between pages (Overview, YoY comparison, Sales channels, Products, Buyers, Social & ads, Geography, Distributors, Product table); the profile at the bottom opens a demo popover with edit-profile and change-password dialogs (nothing is stored).
 - Overview KPIs, monthly trend with prior-year overlay, and a highlights digest linking into each page.
 - Year-on-year comparison: FY2026 vs FY2025 grouped monthly bars, scorecard, and category / channel / state movers.
-- Sales channels (direct sale, membership, WhatsApp, affiliate): stacked chart, mix, category x channel heatmap.
+- Sales channels (direct sale, membership, WhatsApp, affiliate, Meta ads, Google ads): stacked chart, mix, category x channel heatmap. The two paid channels are derived from the ads table so channel and ad numbers reconcile.
 - Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
 - Buyers: buyer tiles, new vs repeat, age and gender, and what each age group buys.
 - Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, platform efficiency, campaigns table, brand sentiment by platform and theme.
