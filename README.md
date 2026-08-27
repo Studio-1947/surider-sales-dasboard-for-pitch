@@ -35,6 +35,15 @@ Built in response to the Studio 1947 build review (27 Aug 2026), all on the mode
 
 Cost of goods, commission rates, households, targets, stock cover and cohort curves are modelled inputs in `data.json`; swap them for real files when available.
 
+## Interactive explorers
+
+Four "canvas" panels share one interaction model (view tabs, search, chip filters, sort with direction, a KPI strip that follows the filters):
+
+- **Meta ads creative canvas** (Social & ads): ad-level modelled export (`ads`, `H` in `data.json`) reconciled to the campaign table. Views: Visual analytics (spend vs impressions dual bars, purchases with CPA badges), Creative cards, CTR vs CPC matrix, Full data matrix (spend, impressions, reach, frequency, CPM, link clicks, CTR, CPC, landing views, adds to cart, purchases, cost per purchase, purchase value, ROAS).
+- **Product explorer** (Products): ranking, cards, price-vs-volume matrix, full data; filters by category, momentum and stock cover.
+- **Distributor explorer** (Distributors): cards, team-vs-revenue matrix, full data; filters by tier and delivery status.
+- **State explorer** (Geography): cards, households-vs-revenue matrix, full data; filters by coverage read and metro presence.
+
 ## Deploy on Vercel
 
 The site is fully static (no build step). `vercel.json` sets `framework: null`, serves the repo root, rewrites `/` to `sunrider-sales-dashboard.html`, and caches the two JSON files. `index.html` is a fallback redirect for hosts that ignore `vercel.json` (GitHub Pages, Netlify).
