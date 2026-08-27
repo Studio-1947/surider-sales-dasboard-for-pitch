@@ -10,16 +10,16 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 ## What is in it
 
 - Two fiscal years of modelled data: FY2025 (Apr 2024 - Mar 2025, mock prior year) and FY2026 (Apr 2025 - Mar 2026). Every comparison is year-on-year against the same period.
-- Sticky header: India + state selector, product search, theme capsule; second row with fiscal year, Full year / Q1-Q4 / Custom month range.
-- Left sidebar navigation with scroll-spy and the signed-in profile.
-- Overview KPIs, monthly trend with prior-year overlay.
+- Sticky header: India + state selector, product search, fiscal year, Full year / Q1-Q4 / Custom month range, channel and category filters, theme capsule.
+- Left sidebar switches between pages (Overview, YoY comparison, Sales channels, Products, Buyers, Social & ads, Geography, Distributors, Product table); the profile at the bottom opens a demo popover with edit-profile and change-password dialogs (nothing is stored).
+- Overview KPIs, monthly trend with prior-year overlay, and a highlights digest linking into each page.
 - Year-on-year comparison: FY2026 vs FY2025 grouped monthly bars, scorecard, and category / channel / state movers.
 - Sales channels (direct sale, membership, WhatsApp, affiliate): stacked chart, mix, category x channel heatmap.
 - Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
-- Buyers: new vs repeat, age and gender.
-- Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, campaigns table, brand sentiment by platform and theme.
+- Buyers: buyer tiles, new vs repeat, age and gender, and what each age group buys.
+- Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, platform efficiency, campaigns table, brand sentiment by platform and theme.
 - Geography: every state shaded on the choropleth, metro pins, market bars (Top 12 / all), and a pincode drill-down per metro (real postal boundaries, modelled revenue split, pincode search).
-- Distributors: a modelled local distributor network in every state and union territory (tiers, team size, join year, YoY), on a map and in a sortable, searchable table.
+- Distributors: a modelled local distributor network in every state and union territory (tiers, team size, join year, YoY), on a map, in a sortable, searchable table, and summarised by state.
 - Sortable, searchable product table.
 - Every large card has its own local filters; global filters show as removable chips.
 
