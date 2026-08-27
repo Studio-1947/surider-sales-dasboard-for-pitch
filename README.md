@@ -18,6 +18,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Buyers: new vs repeat, age and gender.
 - Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, campaigns table, brand sentiment by platform and theme.
 - Geography: every state shaded on the choropleth, metro pins, market bars (Top 12 / all), and a pincode drill-down per metro (real postal boundaries, modelled revenue split, pincode search).
+- Distributors: a modelled local distributor network in every state and union territory (tiers, team size, join year, YoY), on a map and in a sortable, searchable table.
 - Sortable, searchable product table.
 - Every large card has its own local filters; global filters show as removable chips.
 
