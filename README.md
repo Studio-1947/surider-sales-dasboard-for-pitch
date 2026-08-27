@@ -24,3 +24,13 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Every large card has its own local filters; global filters show as removable chips.
 
 Typeface: Google Sans Flex. Light theme by default.
+
+## Deploy on Vercel
+
+The site is fully static (no build step). `vercel.json` sets `framework: null`, serves the repo root, rewrites `/` to `sunrider-sales-dashboard.html`, and caches the two JSON files. `index.html` is a fallback redirect for hosts that ignore `vercel.json` (GitHub Pages, Netlify).
+
+1. Import the repo in Vercel (Add New Project). Framework preset: **Other**. Leave build command and output directory empty.
+2. Deploy. The dashboard opens at `/` (also `/dashboard`); deep links like `/#sec-social` keep working.
+3. Nothing else is required: fonts come from Google Fonts, product images from Sunrider's CDN, and `pincodes.json` is fetched from the same origin, so the pincode panel works on Vercel.
+
+Local preview: `python3 -m http.server 8081` in the repo folder, then open `http://localhost:8081/`.
