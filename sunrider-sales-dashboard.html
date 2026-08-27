@@ -97,6 +97,7 @@ body{
 .timectl .seg{flex-wrap:nowrap;} .timectl .seg button{padding:5px 8px; font-size:12.5px;}
 .scope{font-size:12.5px; color:var(--muted); white-space:nowrap;}
 .locals{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+.localsel{padding:6px 8px; font-size:12.5px; max-width:170px; text-overflow:ellipsis;}
 .top .brand{display:none; margin:0;}
 .top .crumb{font-size:13px; color:var(--muted); white-space:nowrap;}
 .region{display:inline-flex; align-items:stretch; border:1px solid var(--hair); border-radius:9px; overflow:hidden; background:var(--surface); flex:none;}
@@ -150,6 +151,17 @@ body{
 .hl button.act{border-left-color:var(--accent); cursor:default} .hl button.act .hi{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
 .hl button.act .v{color:var(--accent)} .hl .why{font-size:12px; color:var(--ink-2); margin-top:4px} .hl .do{font-size:12.5px; color:var(--ink); margin-top:6px; font-weight:500}
 .hl .conf{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted); white-space:nowrap}
+.hl.acts{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.hl button.act .top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px}
+.hl button.act .top .k{line-height:1.35}
+.hl button.act .imp{font-size:13px; font-weight:700; color:var(--ink); white-space:nowrap; letter-spacing:-.01em}
+.hl button.act .v{font-size:14.5px; line-height:1.3}
+.hl button.act .why{display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; line-height:1.4}
+.hl button.act .do{line-height:1.4}
+.hl button.act .rl{margin-top:auto; padding-top:8px; flex-wrap:nowrap}
+.hl button.act .rl .go{overflow:hidden; text-overflow:ellipsis}
+.hl button.act .rl .go span{font-weight:400}
+.hl button.act .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl button.act .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl button.act .conf.lo{color:var(--muted); background:var(--surface)}
 .hl .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl .conf.lo{color:var(--muted)}
 .pop{position:fixed; z-index:40; background:var(--surface); border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 32px -12px rgba(0,0,0,.4); padding:8px; width:240px;}
 .pop .who{display:flex; gap:10px; align-items:center; padding:8px 8px 10px; border-bottom:1px solid var(--hair); margin-bottom:6px;}
@@ -197,7 +209,10 @@ body{
 .chipgrp button{all:unset; box-sizing:border-box; cursor:pointer; font-size:12px; font-weight:500; padding:4px 8px; border-radius:6px; color:var(--ink-2); white-space:nowrap}
 .chipgrp button[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink)}
 .csort{display:inline-flex; align-items:center; gap:4px; margin-left:auto}
-.csort select{padding:6px 8px; font-size:12.5px}
+.csel{display:inline-flex; align-items:center; gap:4px}
+.csel .lbl{font-size:11px; color:var(--muted); padding:0 6px; letter-spacing:.04em; text-transform:uppercase}
+.csort select, .csel select{padding:6px 8px; font-size:12.5px}
+.csel select{max-width:170px; text-overflow:ellipsis}
 .csort .iconbtn{width:30px; height:30px}
 .ckpis{margin-bottom:14px}
 .ckpi .k{display:flex; align-items:center; gap:8px; justify-content:space-between}
@@ -294,6 +309,14 @@ body{
 .st{fill:var(--surface-2); stroke:var(--surface); stroke-width:1.2; transition:fill .2s; cursor:pointer;}
 .st:hover{stroke:var(--accent); stroke-width:1.5;}
 .st.on{stroke:var(--accent); stroke-width:2;}
+.zoomwrap{position:relative}
+.zoomctl{position:absolute; top:8px; right:8px; display:flex; flex-direction:column; gap:4px; z-index:3}
+.zoomctl button{all:unset; box-sizing:border-box; width:30px; height:30px; display:grid; place-items:center; border-radius:8px; background:var(--surface); border:1px solid var(--hair); color:var(--ink-2); cursor:pointer; font-size:16px; font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.zoomctl button:hover{color:var(--ink); border-color:var(--accent)}
+.zoomctl .lvl{font-size:10.5px; color:var(--muted); text-align:center; background:var(--surface); border-radius:6px; padding:2px 0; border:1px solid var(--hair)}
+.zoomwrap svg{touch-action:none; user-select:none}
+.zoomwrap.grab svg{cursor:grab} .zoomwrap.grabbing svg{cursor:grabbing}
+.zoomhint{position:absolute; left:8px; bottom:6px; font-size:10.5px; color:var(--muted); background:color-mix(in srgb,var(--surface) 80%,transparent); padding:2px 7px; border-radius:6px; pointer-events:none}
 .pin{cursor:pointer}
 .pinlay{grid-template-columns:minmax(280px,520px) minmax(0,1fr);}
 .distlay{grid-template-columns:minmax(260px,380px) minmax(0,1fr); align-items:stretch;}
@@ -610,7 +633,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
     </section>
     <section class="card c12">
       <div class="chead"><div><h2>Recommended actions</h2><p class="note" id="actNote">Ranked by estimated rupee impact · each card says why, what to do, and how confident the estimate is</p></div></div>
-      <div class="hl" id="actions"></div>
+      <div class="hl acts" id="actions"></div>
     </section>
   </div>
 
@@ -841,6 +864,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
     <section class="card c12" id="distCard">
       <div class="chead"><div><h2>Distributor network</h2><p class="note" id="distNote"></p></div><div class="spacer"></div>
         <div class="locals"><div class="seg mini" role="group" data-local="distTier"><button type="button" data-v="-1" aria-pressed="true">All tiers</button><button type="button" data-v="0" aria-pressed="false">Diamond</button><button type="button" data-v="1" aria-pressed="false">Gold</button><button type="button" data-v="2" aria-pressed="false">Silver</button><button type="button" data-v="3" aria-pressed="false">Bronze</button></div>
+        <select id="distStateSel" aria-label="Filter distributors by state" class="localsel"><option value="-1">All states</option></select>
         <label class="search" style="flex:0 0 200px"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="distQ" type="search" placeholder="Find a distributor or place"></label></div>
       </div>
       <div class="maplay distlay">
@@ -849,7 +873,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       </div>
     </section>
     <section class="card c12">
-      <div class="chead"><div><h2>Distributor explorer</h2><p class="note">Cards, a team-versus-revenue matrix and the full table · filter by tier and delivery status</p></div></div>
+      <div class="chead"><div><h2>Distributor explorer</h2><p class="note">Cards, a team-versus-revenue matrix and the full table · filter by tier, delivery status and state</p></div></div>
       <div class="canvas" id="distCanvas"></div>
     </section>
     <section class="card c12">
@@ -922,7 +946,7 @@ const fmtP = v => v.toFixed(1) + "%";
 
 /* ---------- state ---------- */
 let LASTD = null;
-const L = { fcMet:"rev", ordMode:"count", contribSort:"contrib", covSort:"gap", yoyBy:"abs", distAll:false, ageMet:"v", yoyMet:"rev", distTier:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
+const L = { fcMet:"rev", ordMode:"count", contribSort:"contrib", covSort:"gap", yoyBy:"abs", distAll:false, ageMet:"v", yoyMet:"rev", distTier:-1, distState:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
 const S = { fy: 1, per: "Y", from: 12, to: 23, cat: -1, state: -1, chan: -1, metric: "rev", metrics: new Set(["rev"]), sortKey: "rev", sortDir: -1, table: true, q: "", hide: new Set() };
 const NM = DATA.monthLabels, CATS = DATA.categories, PRODS = DATA.products;
 const STATES = DATA.states, CHANS = DATA.channels, CST = DATA.cityState;
@@ -1494,7 +1518,7 @@ function drawActions(cur, prv, range){
   acts.sort((a,b)=>b.impact-a.impact);
   const total=acts.reduce((a,x)=>a+x.impact,0);
   $("#actNote").textContent = `${acts.length} actions worth an estimated ${fmtC(total)} in ${perLabel()} terms · impacts are modelled (recovery, reactivation and reallocation rates are assumptions to validate) · ranked by rupee impact`;
-  host.innerHTML = acts.map(a=>`<button type="button" class="exc act"><span class="hi">${a.ico}</span><div class="body"><div class="k">${a.t}</div><div class="v">${a.v}</div><div class="why">${a.why}</div><div class="do">→ ${a.do}</div><div class="rl"><span class="conf ${a.conf}">Confidence: ${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] }</span><span class="go">≈ ${fmtC(a.impact)} impact</span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
+  host.innerHTML = acts.map((a,i)=>`<button type="button" class="exc act" title="${esc(a.why)}"><span class="hi">${a.ico}</span><div class="body"><div class="top"><div class="k">${i+1} · ${a.t}</div><div class="imp">≈ ${fmtC(a.impact)}</div></div><div class="v">${a.v}</div><div class="why">${a.why}</div><div class="do">→ ${a.do}</div><div class="rl"><span class="conf ${a.conf}">${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] } confidence</span><span class="go">${fmtP(pct(a.impact,total))} <span>of the total</span></span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
 }
 
 /* ---------- year-on-year comparison ---------- */
@@ -1733,6 +1757,7 @@ function makeCanvas(cfg){
       <div class="cfilters">
         <label class="search csearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="${esc(cfg.search.placeholder)}"></label>
         ${cfg.chips.map(g=>`<div class="chipgrp" data-key="${g.key}"><span class="lbl">${g.label}</span><button type="button" data-v="" aria-pressed="true">All</button>${g.values.map(v=>`<button type="button" data-v="${esc(v)}" aria-pressed="false">${esc(v)}</button>`).join("")}</div>`).join("")}
+        ${(cfg.selects||[]).map(g=>`<div class="csel" data-key="${g.key}"><span class="lbl">${g.label}</span><select><option value="">${esc(g.all||"All")}</option>${g.values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("")}</select></div>`).join("")}
         <div class="csort"><span class="lbl">Sort</span><select>${cfg.sorts.map(s=>`<option value="${s.key}">${s.label}</option>`).join("")}</select><button type="button" class="iconbtn dirbtn" title="Flip sort direction"><svg viewBox="0 0 24 24"><path d="M8 4v16M8 20l-3-3M8 20l3-3M16 20V4M16 4l-3 3M16 4l3 3"/></svg></button></div>
       </div>
       <div class="ckpis kpis k4"></div>
@@ -1740,16 +1765,18 @@ function makeCanvas(cfg){
     host.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{ st.tab=b.dataset.tab; refresh(); }));
     host.querySelector(".csearch input").addEventListener("input", ev=>{ st.q=ev.target.value; refresh(); });
     host.querySelectorAll(".chipgrp").forEach(g=>g.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ st.chips[g.dataset.key]=b.dataset.v; refresh(); })));
+    host.querySelectorAll(".csel").forEach(g=>g.querySelector("select").addEventListener("change", ev=>{ st.chips[g.dataset.key]=ev.target.value; refresh(); }));
     host.querySelector(".csort select").addEventListener("change", ev=>{ st.sort=ev.target.value; const s=cfg.sorts.find(x=>x.key===st.sort); st.dir = s&&s.dir ? s.dir : -1; refresh(); });
     host.querySelector(".dirbtn").addEventListener("click", ()=>{ st.dir*=-1; refresh(); });
   }
   function refresh(){
     const all = cfg.items();
     const q = st.q.trim().toLowerCase();
-    let items = all.filter(x => (!q || cfg.search.keys.some(k=>String(x[k]||"").toLowerCase().includes(q))) && cfg.chips.every(g => !st.chips[g.key] || String(x[g.key])===st.chips[g.key]));
+    let items = all.filter(x => (!q || cfg.search.keys.some(k=>String(x[k]||"").toLowerCase().includes(q))) && cfg.chips.concat(cfg.selects||[]).every(g => !st.chips[g.key] || String(x[g.key])===st.chips[g.key]));
     const dir = st.dir; items.sort((a,b)=> typeof a[st.sort]==="string" ? dir*String(a[st.sort]).localeCompare(String(b[st.sort])) : dir*(((a[st.sort]??-1e18))-((b[st.sort]??-1e18))));
     host.querySelectorAll("[data-tab]").forEach(b=>{ b.setAttribute("aria-selected", b.dataset.tab===st.tab); b.querySelector(".cnt").textContent = items.length; });
     host.querySelectorAll(".chipgrp").forEach(g=>g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", (st.chips[g.dataset.key]||"")===b.dataset.v)));
+    host.querySelectorAll(".csel").forEach(g=>{ g.querySelector("select").value = st.chips[g.dataset.key]||""; });
     host.querySelector(".csort select").value = st.sort; host.querySelector(".dirbtn").setAttribute("aria-label", dir<0?"Descending":"Ascending"); host.querySelector(".dirbtn").style.transform = dir<0?"":"scaleY(-1)";
     const k = host.querySelector(".ckpis"); k.innerHTML = cfg.kpis(items, all).map(([label,val,s1,s2,ico])=>`<div class="kpi ckpi"><div class="k">${label}<span class="pi">${ico||""}</span></div><div class="v">${val}</div><div class="d"><span>${s1||""}</span><span class="spacer"></span><span>${s2||""}</span></div></div>`).join("");
     const view = host.querySelector(".cview"); const t = cfg.tabs.find(x=>x.id===st.tab) || cfg.tabs[0];
@@ -1888,6 +1915,7 @@ function drawDistCanvas(d, dp, range){
     tabs:[{id:"cards",label:"Distributor cards",icon:ICO.people,render:cards},{id:"matrix",label:"Team vs revenue",icon:ICO.trend,render:matrix},{id:"data",label:"Full data",icon:ICO.sort,render:data}],
     search:{placeholder:"Filter by name, state or metro", keys:["n","state","place"]},
     chips:[{key:"tier",label:"Tier",values:DATA.tiers},{key:"status",label:"Status",values:["Active","Dormant","Not started"]}],
+    selects:[{key:"state",label:"State",all:"All states",values:[...STATES].sort((a,b)=>a.localeCompare(b))}],
     sorts:[{key:"rev",label:"Revenue"},{key:"team",label:"Team size"},{key:"rpt",label:"Revenue per member"},{key:"yoy",label:"YoY"},{key:"j",label:"Joined",dir:1},{key:"ttf",label:"Time to first sale",dir:1},{key:"n",label:"Name",dir:1}],
     items:()=>distItems(d, dp, range),
     kpis:(items)=>{ const T=items.reduce((a,x)=>({rev:a.rev+x.rev,team:a.team+x.team}),{rev:0,team:0}); const act=items.filter(x=>x.status==="Active").length, dor=items.filter(x=>x.status==="Dormant").length;
@@ -1967,7 +1995,7 @@ function drawMovers(range){
 }
 
 /* ---------- filters: chips + setters ---------- */
-function syncSelects(){ $("#catSel").value=S.cat; $("#stateSel").value=S.state; $("#chanSel").value=S.chan; }
+function syncSelects(){ $("#catSel").value=S.cat; $("#stateSel").value=S.state; $("#chanSel").value=S.chan; const ds=$("#distStateSel"); if (ds){ ds.disabled = S.state>=0; ds.title = S.state>=0 ? "Clear the global state filter in the top bar to use this" : ""; if (S.state>=0) ds.value=S.state; else ds.value=L.distState; } }
 function setCat(i){ S.cat = S.cat===i ? -1 : i; syncSelects(); render(); }
 function setChan(k){ S.chan = S.chan===k ? -1 : k; syncSelects(); render(); }
 function drawChips(){
@@ -2132,6 +2160,30 @@ function drawSentiment(range, prv){
   });
 }
 
+/* ---------- zoom and pan for every map ---------- */
+const ZOOM = {};
+function zoomable(host, svg){
+  const id = host.id, base = svg.getAttribute("viewBox").split(/\s+/).map(Number);
+  const st = ZOOM[id] || (ZOOM[id] = {k:1, cx:base[0]+base[2]/2, cy:base[1]+base[3]/2});
+  const clamp = ()=>{ st.k = Math.min(12, Math.max(1, st.k)); const w=base[2]/st.k, h=base[3]/st.k; st.cx=Math.min(base[0]+base[2]-w/2, Math.max(base[0]+w/2, st.cx)); st.cy=Math.min(base[1]+base[3]-h/2, Math.max(base[1]+h/2, st.cy)); };
+  const apply = ()=>{ clamp(); const w=base[2]/st.k, h=base[3]/st.k; svg.setAttribute("viewBox",`${st.cx-w/2} ${st.cy-h/2} ${w} ${h}`); const l=host.querySelector(".zoomctl .lvl"); if(l) l.textContent=st.k.toFixed(1).replace(".0","")+"×"; host.classList.toggle("grab", st.k>1); };
+  host.classList.add("zoomwrap");
+  if (!host.querySelector(".zoomctl")){
+    const c=document.createElement("div"); c.className="zoomctl"; c.innerHTML=`<button type="button" data-z="in" title="Zoom in" aria-label="Zoom in">+</button><div class="lvl"></div><button type="button" data-z="out" title="Zoom out" aria-label="Zoom out">−</button><button type="button" data-z="reset" title="Reset view" aria-label="Reset view">⌂</button>`;
+    c.querySelectorAll("button").forEach(b=>b.addEventListener("click",ev=>{ ev.stopPropagation(); const z=b.dataset.z; if(z==="in") st.k*=1.5; else if(z==="out") st.k/=1.5; else { st.k=1; st.cx=base[0]+base[2]/2; st.cy=base[1]+base[3]/2; } apply(); }));
+    host.appendChild(c);
+    const hint=document.createElement("div"); hint.className="zoomhint"; hint.textContent="Pinch or ⌘/Ctrl + scroll to zoom · drag to pan"; host.appendChild(hint);
+  }
+  const toSvg = ev => { const r=svg.getBoundingClientRect(), vb=svg.getAttribute("viewBox").split(/\s+/).map(Number); return [vb[0]+(ev.clientX-r.left)/r.width*vb[2], vb[1]+(ev.clientY-r.top)/r.height*vb[3], r]; };
+  svg.addEventListener("wheel", ev=>{ if (!(ev.ctrlKey||ev.metaKey) && st.k===1) return; ev.preventDefault(); const [px,py]=toSvg(ev), f = ev.deltaY<0 ? 1.15 : 1/1.15, k2 = Math.min(12, Math.max(1, st.k*f)); const ratio = st.k/k2; st.cx = px + (st.cx-px)*ratio; st.cy = py + (st.cy-py)*ratio; st.k=k2; apply(); }, {passive:false});
+  let drag=null;
+  svg.addEventListener("pointerdown", ev=>{ if (st.k<=1 || ev.button!==0) return; drag={x:ev.clientX,y:ev.clientY,cx:st.cx,cy:st.cy,moved:false}; host.classList.add("grabbing"); svg.setPointerCapture(ev.pointerId); });
+  svg.addEventListener("pointermove", ev=>{ if(!drag) return; const r=svg.getBoundingClientRect(), vb=svg.getAttribute("viewBox").split(/\s+/).map(Number); const dx=(ev.clientX-drag.x)/r.width*vb[2], dy=(ev.clientY-drag.y)/r.height*vb[3]; if (Math.abs(ev.clientX-drag.x)+Math.abs(ev.clientY-drag.y)>3) drag.moved=true; st.cx=drag.cx-dx; st.cy=drag.cy-dy; apply(); });
+  const end = ev=>{ if(!drag) return; const moved=drag.moved; drag=null; host.classList.remove("grabbing"); if (moved){ const stop=e2=>{ e2.stopPropagation(); e2.preventDefault(); svg.removeEventListener("click",stop,true); }; svg.addEventListener("click",stop,true); setTimeout(()=>svg.removeEventListener("click",stop,true),0); } };
+  svg.addEventListener("pointerup", end); svg.addEventListener("pointercancel", end);
+  apply();
+}
+
 /* ---------- India pin map (Simplemaps state outlines, Mercator-fitted pins) ---------- */
 const MAP_ID = DATA.stateMapId;
 const MP = {a:27.381072, b:-1767.123675, c:-1568.644145, d:1139.919029};
@@ -2187,7 +2239,7 @@ function drawMap(d){
   const others = vals.slice(9).reduce((a,b)=>a+b,0);
   if (others>0) svg.appendChild(e("text",{x:905,y:950,"text-anchor":"end",style:"fill:var(--muted);font-size:20px"},[txt(`Other states ${fmtV(others)} · ${fmtP(pct(others,tot))}`)]));
   svg.setAttribute("aria-label","Map of India with "+lab.toLowerCase()+" pins: "+pins.map(p=>p.n+" "+fmtV(p.v)).join(", "));
-  host.innerHTML=""; host.appendChild(svg);
+  host.innerHTML=""; host.appendChild(svg); zoomable(host, svg);
   $("#mapNote").textContent = S.state>=0
     ? `Focused on ${STATES[S.state]}. Click the state or pin again, or choose All states, to clear`
     : `States shaded by ${lab.toLowerCase()}, pins sized by metro ${lab.toLowerCase()} · hover for details, click to focus a state`;
@@ -2227,18 +2279,19 @@ function drawDistributors(d, dp){
   const rows = DS.map(x=>{ const sh = x.w/(wSum[x.s]||1), rev = stRev[x.s]*sh, prev = dp ? pRev[x.s]*sh*(1+x.g2) : null;
     return {...x, rev, ord: stOrd[x.s]*sh, prev, yoy: prev ? (rev-prev)/prev*100 : null}; });
   const q = L.distQ.trim().toLowerCase();
-  let vis = rows.filter(r => (S.state<0 || r.s===S.state) && (L.distTier<0 || r.t===L.distTier) && (!q || r.n.toLowerCase().includes(q) || STATES[r.s].toLowerCase().includes(q) || DATA.cities[r.m].toLowerCase().includes(q)) && r.rev>0);
+  const stF = S.state>=0 ? S.state : L.distState;
+  let vis = rows.filter(r => (stF<0 || r.s===stF) && (L.distTier<0 || r.t===L.distTier) && (!q || r.n.toLowerCase().includes(q) || STATES[r.s].toLowerCase().includes(q) || DATA.cities[r.m].toLowerCase().includes(q)) && r.rev>0);
   const k=L.distSort, dir=L.distDir;
   vis.sort((a,b)=> typeof a[k]==="string" ? dir*a[k].localeCompare(b[k]) : dir*((a[k]??-1e18)-(b[k]??-1e18)));
   const tot = vis.reduce((a,r)=>a+r.rev,0), team = vis.reduce((a,r)=>a+r.team,0);
   const sortedRev = vis.map(r=>r.rev).sort((a,b)=>b-a), topN = Math.max(1, Math.round(sortedRev.length*0.1)), topShare = pct(sortedRev.slice(0,topN).reduce((a,b)=>a+b,0), tot);
   $("#distSum").innerHTML = `<div><span class="pi">${ICO.star}</span><div><div class="k">Top 10% share</div><div class="v">${fmtP(topShare)}</div></div></div><div><span class="pi">${ICO.net}</span><div><div class="k">Distributors</div><div class="v">${fmtN(vis.length)}</div></div></div><div><span class="pi">${ICO.people}</span><div><div class="k">Team</div><div class="v">${fmtN(team)}</div></div></div><div><span class="pi">${ICO.rupee}</span><div><div class="k">Avg revenue</div><div class="v">${fmtC(vis.length?tot/vis.length:0)}</div></div></div>`;
-  $("#distNote").textContent = `${vis.length} local distributors ${S.state>=0?"in "+STATES[S.state]:"across "+new Set(vis.map(r=>r.s)).size+" states and union territories"} · ${fmtC(tot)} of ${perLabel()} revenue attributed by distributor weight · click a column to sort`;
+  $("#distNote").textContent = `${vis.length} local distributors ${stF>=0?"in "+STATES[stF]:"across "+new Set(vis.map(r=>r.s)).size+" states and union territories"} · ${fmtC(tot)} of ${perLabel()} revenue attributed by distributor weight · click a column to sort`;
   /* map dots */
   const host = $("#distMap"), svg = document.importNode($("#indiaTpl").content.firstElementChild, true);
   svg.setAttribute("viewBox","70 70 850 900"); svg.setAttribute("style","width:100%;height:auto;display:block"); svg.setAttribute("role","img"); svg.setAttribute("aria-label","Distributor locations across India");
   svg.querySelectorAll("path").forEach(pth=>{ pth.classList.add("st"); pth.removeAttribute("fill"); pth.removeAttribute("stroke"); pth.style.cursor="default";
-    const si = STATES.findIndex(s=>MAP_ID[s]===pth.id); if (si>=0 && S.state===si) pth.classList.add("on"); });
+    const si = STATES.findIndex(s=>MAP_ID[s]===pth.id); if (si>=0 && stF===si) pth.classList.add("on"); });
   [...vis].sort((a,b)=>a.t-b.t).reverse().forEach(r=>{
     const c = e("circle",{cx:mx(r.g[0]),cy:my(r.g[1]),r:[9,7,5.5,4.5][r.t],style:`fill:${TIERCOL[r.t]};stroke:#fff;stroke-width:1.5;opacity:.9;cursor:pointer`});
     c.addEventListener("mousemove",ev=>tipShow(`<span class="t">${TI[r.t]} · ${DATA.cities[r.m]}${r.m<9?", "+STATES[r.s]:""}</span><b>${r.n}</b>`+tipRow("Revenue",fmtC(r.rev,true))+tipRow("Orders",fmtN(r.ord))+tipRow("Team",fmtN(r.team))+tipRow("Since",r.j)+(r.yoy!==null?tipRow("vs "+prevLabel(),(r.yoy>=0?"+":"")+r.yoy.toFixed(1)+"%"):""),ev));
@@ -2246,8 +2299,8 @@ function drawDistributors(d, dp){
     c.addEventListener("click",()=>{ $("#distQ").value=r.n; L.distQ=r.n; render(); });
     svg.appendChild(c);
   });
-  host.innerHTML=""; host.appendChild(svg);
-  $("#distLeg").innerHTML = TI.map((t,i)=>`<span style="color:${TIERCOL[i]}">${TIERICO[i]}<span style="color:var(--ink-2)">${t} (${rows.filter(r=>r.t===i && (S.state<0||r.s===S.state)).length})</span></span>`).join("");
+  host.innerHTML=""; host.appendChild(svg); zoomable(host, svg);
+  $("#distLeg").innerHTML = TI.map((t,i)=>`<span style="color:${TIERCOL[i]}">${TIERICO[i]}<span style="color:var(--ink-2)">${t} (${rows.filter(r=>r.t===i && (stF<0||r.s===stF)).length})</span></span>`).join("");
   $("#distLeg").style.justifyContent="center";
   /* coverage by state */
   const keepState=S.state; S.state=-1; const dAll=aggDemo(rangeFor(S.per)); S.state=keepState;
@@ -2295,8 +2348,8 @@ function drawPins(){
   const metros = DATA.cities.slice(0,9), metroState = m => STATES[CST[DATA.cities.indexOf(m)]];
   if (!stSel.children.length){
     [...new Set(metros.map(metroState))].forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s; stSel.appendChild(o); });
-    stSel.addEventListener("change",()=>{ PIN.metro = metros.find(m=>metroState(m)===stSel.value); PIN.sel=null; drawPins(); });
-    mSel.addEventListener("change",()=>{ PIN.metro = mSel.value; PIN.sel=null; drawPins(); });
+    stSel.addEventListener("change",()=>{ PIN.metro = metros.find(m=>metroState(m)===stSel.value); PIN.sel=null; delete ZOOM.pinMap; drawPins(); });
+    mSel.addEventListener("change",()=>{ PIN.metro = mSel.value; PIN.sel=null; delete ZOOM.pinMap; drawPins(); });
     pSel.addEventListener("change",()=>{ PIN.sel = pSel.value || null; drawPins(); });
     $("#pinQ").addEventListener("input", ev=>{ const q=ev.target.value.trim(); if (q.length===6) pinFind(q); });
   }
@@ -2326,7 +2379,7 @@ function drawPins(){
     path.addEventListener("click",go); path.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); go(); } });
     g.push(path);
   });
-  host.innerHTML=""; host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,role:"img",style:"width:100%;height:auto;display:block;max-height:560px","aria-label":`Pincode map of ${PIN.metro}, ${rows.length} pincodes shaded by ${lab.toLowerCase()}`},g));
+  host.innerHTML=""; const pinSvg=e("svg",{viewBox:`0 0 ${W} ${H}`,role:"img",style:"width:100%;height:auto;display:block;max-height:560px","aria-label":`Pincode map of ${PIN.metro}, ${rows.length} pincodes shaded by ${lab.toLowerCase()}`},g); host.appendChild(pinSvg); zoomable(host, pinSvg);
   const top10 = rows.slice(0,10), top10sh = pct(top10.reduce((a,r)=>a+val(r),0), tot);
   let html = `<div class="pinsum"><div><div class="k">Pincodes</div><div class="v">${rows.length}</div></div><div><div class="k">${lab} in metro</div><div class="v">${fmtV(tot)}</div></div><div><div class="k">Top 10 share</div><div class="v">${fmtP(top10sh)}</div></div></div>`;
   const s = PIN.sel ? rows.find(r=>r.p.p===PIN.sel) : null;
@@ -2452,6 +2505,8 @@ document.querySelectorAll("[data-met]").forEach(b => b.addEventListener("click",
 }));
 $("#srch").addEventListener("input", ev=>{ S.q = ev.target.value; if (S.q && CUR_PAGE!=="table") showPage("table"); else { drawTable(agg(rangeFor(S.per))); drawChips(); } });
 $("#distQ").addEventListener("input", ev=>{ L.distQ = ev.target.value; render(); });
+{ const sel=$("#distStateSel"); STATES.map((s,i)=>[s,i]).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([s,i])=>{ const o=document.createElement("option"); o.value=i; o.textContent=s; sel.appendChild(o); });
+  sel.addEventListener("change", ()=>{ L.distState=+sel.value; render(); }); }
 /* local per-card filters */
 document.querySelectorAll("[data-local]").forEach(grp=>{
   const key=grp.dataset.local;
