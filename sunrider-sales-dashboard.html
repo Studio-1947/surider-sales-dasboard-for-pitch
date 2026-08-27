@@ -19,6 +19,7 @@
   --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
   --q1:#86b6ef; --q2:#5598e7; --q3:#3987e5; --q4:#256abf; --q5:#184f95;
   --bar:#2a78d6; --meta:#1877f2; --google:#e8a100; --xdot:#111111;
+  --a1:#9ad3c1; --a2:#5fb89f; --a3:#2f9c7e; --a4:#1d7a61; --a5:#0f5a46;
   --shadow:0 1px 2px rgba(20,23,15,.05), 0 8px 24px -18px rgba(20,23,15,.35);
 }
 @media (prefers-color-scheme: dark){
@@ -33,6 +34,7 @@
     --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
     --q1:#cde2fb; --q2:#9ec5f4; --q3:#6da7ec; --q4:#3987e5; --q5:#256abf;
     --bar:#3987e5; --meta:#4d94ff; --google:#f0b429; --xdot:#e8ebe2;
+  --a1:#3e6f61; --a2:#4f8e7b; --a3:#62ad96; --a4:#7fc9b2; --a5:#a6e1cf;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
   }
 }
@@ -47,6 +49,7 @@
   --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
   --q1:#cde2fb; --q2:#9ec5f4; --q3:#6da7ec; --q4:#3987e5; --q5:#256abf;
   --bar:#3987e5; --meta:#4d94ff; --google:#f0b429; --xdot:#e8ebe2;
+  --a1:#3e6f61; --a2:#4f8e7b; --a3:#62ad96; --a4:#7fc9b2; --a5:#a6e1cf;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
 }
 
@@ -950,6 +953,8 @@ function thumb(pi, cls){
 }
 const SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 const QRAMP  = ["--q1","--q2","--q3","--q4","--q5"];
+const ARAMP  = ["--a1","--a2","--a3","--a4","--a5"];
+const GENCOL = ["--s5","--s1","--muted"];   /* age bands: a green ramp so nothing repeats the gender colours */
 
 function rangeFor(per, fy){
   if (per==="C") return [S.from, S.to+1];
@@ -1256,13 +1261,13 @@ function drawDemo(cur){
   const d = aggDemo(rangeFor(S.per));
   const ageTot = d.age.reduce((a,b)=>a+b,0)||1;
   hbars($("#age"), DATA.age.map((l,i)=>({label:l+" yrs", v:d.age[i], unit:"Orders"})),
-        (x,i)=>QRAMP[i], fmtN, ageTot, "Orders by buyer age band");
+        (x,i)=>ARAMP[i], fmtN, ageTot, "Orders by buyer age band");
   const genTot = d.gen.reduce((a,b)=>a+b,0)||1;
   const host = $("#gender"), W = Math.max(240, host.clientWidth), H=26;
   let x=0; const g=[];
   DATA.gender.forEach((lab,i)=>{
     const share = d.gen[i]/genTot, w = Math.max(0, share*W-2);
-    const r = e("rect",{x:x.toFixed(2),y:0,width:w.toFixed(2),height:H,rx:3,style:`fill:var(${SERIES[[4,0,6][i]]})`});
+    const r = e("rect",{x:x.toFixed(2),y:0,width:w.toFixed(2),height:H,rx:3,style:`fill:var(${GENCOL[i]})`});
     r.addEventListener("mousemove",ev=>tipShow(`<b>${lab}</b>`+tipRow("Orders",fmtN(d.gen[i]))+tipRow("Share",fmtP(share*100)),ev));
     r.addEventListener("mouseleave",tipHide);
     g.push(r); x += share*W;
@@ -1271,7 +1276,7 @@ function drawDemo(cur){
   host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img",
     "aria-label":"Orders by gender: "+DATA.gender.map((l,i)=>l+" "+fmtP(pct(d.gen[i],genTot))).join(", ")},g));
   const leg = document.createElement("div"); leg.className="legend";
-  leg.innerHTML = DATA.gender.map((l,i)=>`<span><i style="background:var(${SERIES[[4,0,6][i]]})"></i>${l} ${fmtP(pct(d.gen[i],genTot))}</span>`).join("");
+  leg.innerHTML = DATA.gender.map((l,i)=>`<span><i style="background:var(${GENCOL[i]})"></i>${l} ${fmtP(pct(d.gen[i],genTot))}</span>`).join("");
   host.appendChild(leg);
   const isOrd = L.geoMet==="ord", vals = isOrd ? d.cityOrd : d.cities, fmtV = isOrd ? fmtN : fmtC;
   const cityTot = vals.reduce((a,b)=>a+b,0)||1;
@@ -1788,9 +1793,10 @@ function scatter(view, items, opts){
     g.push(e("text",{x:M.l+6,y:M.t+12,style:qs},[txt(q[0])])); g.push(e("text",{x:W-M.r-6,y:M.t+12,"text-anchor":"end",style:qs},[txt(q[1])])); g.push(e("text",{x:M.l+6,y:M.t+ih-6,style:qs},[txt(q[2])])); g.push(e("text",{x:W-M.r-6,y:M.t+ih-6,"text-anchor":"end",style:qs},[txt(q[3])])); }
   g.push(e("text",{x:M.l+iw/2,y:H-4,"text-anchor":"middle",style:"fill:var(--ink-2);font-size:11.5px"},[txt(opts.x.label)]));
   g.push(e("text",{x:12,y:M.t+ih/2,transform:`rotate(-90 12 ${M.t+ih/2})`,"text-anchor":"middle",style:"fill:var(--ink-2);font-size:11.5px"},[txt(opts.y.label)]));
-  pts.sort((a,b)=>b[opts.r.key]-a[opts.r.key]).forEach(p=>{ const r=5+Math.sqrt(p[opts.r.key]/rmax)*22, c=e("circle",{cx:sx(p[opts.x.key]),cy:sy(p[opts.y.key]),r,style:`fill:${opts.color(p)};fill-opacity:.55;stroke:${opts.color(p)};stroke-width:1.5;cursor:pointer`});
+  const sorted = pts.slice().sort((a,b)=>b[opts.r.key]-a[opts.r.key]), labelSet = new Set(sorted.slice(0, opts.labelTop||sorted.length));
+  sorted.forEach(p=>{ const r=(opts.simple?6:5)+Math.sqrt(p[opts.r.key]/rmax)*(opts.simple?16:22), c=e("circle",{cx:sx(p[opts.x.key]),cy:sy(p[opts.y.key]),r,style:`fill:${opts.color(p)};fill-opacity:${opts.simple?.35:.55};stroke:${opts.color(p)};stroke-width:1.5;cursor:pointer`});
     c.addEventListener("mousemove",ev=>tipShow(`<b>${esc(p[opts.name])}</b>`+tipRow(opts.x.label,opts.x.fmt(p[opts.x.key]))+tipRow(opts.y.label,opts.y.fmt(p[opts.y.key]))+tipRow(opts.r.label,opts.r.fmt(p[opts.r.key]))+(opts.extra?opts.extra(p):""),ev)); c.addEventListener("mouseleave",tipHide); g.push(c);
-    if (r>14) g.push(e("text",{x:sx(p[opts.x.key]),y:sy(p[opts.y.key])+4,"text-anchor":"middle","pointer-events":"none",style:"fill:var(--ink);font-size:10.5px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px"},[txt(String(p[opts.name]).slice(0,18))])); });
+    if (opts.simple ? labelSet.has(p) : r>14) g.push(e("text",{x:sx(p[opts.x.key])+(opts.simple?r+4:0),y:sy(p[opts.y.key])+4,"text-anchor":opts.simple?"start":"middle","pointer-events":"none",style:"fill:var(--ink);font-size:11px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px"},[txt(String(p[opts.name]).slice(0,22))])); });
   host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":opts.title},g));
   wrap.querySelector(".legend").innerHTML = (opts.legend||[]).map(([l,c])=>`<span><i style="background:${c};border-radius:50%"></i>${l}</span>`).join("") + `<span style="color:var(--muted)">bubble size = ${opts.r.label} · dashed lines = averages</span>`;
   return wrap;
@@ -1852,7 +1858,7 @@ function drawProductCanvas(cur, prv, range){
     badgeBars(grid, items.slice().sort((a,b)=>b.contrib-a.contrib), {title:"Contribution & margin", note:"Rupees left after costs, with margin badge (green ≥ 25%)", key:"contrib", fmt:v=>fmtC(v), badge:x=>({text:fmtP(x.margin)+" margin", tone:x.margin>=25?"good":x.margin>=12?"warn":"bad"}), color:"var(--s3)", name:"n"}); };
   const cards=(view,items)=> cardGrid(view, items, x=>`<div class="ccard"><div class="ct">${tag(x.cat,"obj")}${tag(x.trend, x.trend==="Growing"?"good":x.trend==="Declining"?"bad":"muted")}${tag(x.stockRead+" · "+x.stock+" d", x.stockRead==="At risk"?"bad":x.stockRead==="Watch"?"warn":"good")}</div><div class="cthumb">${thumb(x.pi,"th")}<h4 title="${esc(x.n)}">${esc(x.n)}</h4></div>
       <div class="cm"><div><span>Revenue</span><b>${fmtC(x.rev)}</b></div><div><span>Units</span><b>${fmtN(Math.round(x.uni))}</b></div><div><span>Orders</span><b>${fmtN(Math.round(x.ord))}</b></div><div><span>Unit price</span><b>${fmtC(Math.round(x.unit),true)}</b></div><div><span>Margin</span><b class="${x.margin>=25?"up":x.margin<12?"down":""}">${fmtP(x.margin)}</b></div><div><span>YoY</span><b class="${x.yoy===null?"":x.yoy>=0?"up":"down"}">${x.yoy===null?"–":(x.yoy>=0?"+":"")+x.yoy.toFixed(1)+"%"}</b></div></div></div>`, {title:"Product cards", note:"Every SKU in scope with category, momentum and stock tags"});
-  const matrix=(view,items)=> scatter(view, items, {title:"Price vs volume matrix", note:"Where each SKU sits on price and units · bubble size is revenue · colour is category", x:{key:"unit",label:"Unit price",fmt:v=>fmtC(Math.round(v),true)}, y:{key:"uni",label:"Units sold",fmt:v=>fmtN(Math.round(v))}, r:{key:"rev",label:"Revenue",fmt:v=>fmtC(v)}, color:x=>`var(${SERIES[x.ci]})`, name:"n", quadrants:["Volume drivers","Hero SKUs","Long tail","Premium niche"], legend:CATS.map((c,i)=>[c,`var(${SERIES[i]})`]), extra:x=>tipRow("Margin",fmtP(x.margin))});
+  const matrix=(view,items)=> scatter(view, items, {title:"Price vs volume", note:"Each dot is a SKU: how much it costs against how many sold · bigger dot, more revenue · the eight biggest are named, hover for the rest", x:{key:"unit",label:"Unit price",fmt:v=>fmtC(Math.round(v),true)}, y:{key:"uni",label:"Units sold",fmt:v=>fmtN(Math.round(v))}, r:{key:"rev",label:"Revenue",fmt:v=>fmtC(v)}, color:()=>"var(--accent)", name:"n", simple:true, labelTop:8, quadrants:["Cheap and popular","Priced up and popular","Cheap, sells little","Premium, sells little"], legend:[], extra:x=>tipRow("Category",x.cat)+tipRow("Margin",fmtP(x.margin))});
   const data=(view,items,ctx)=> dataTable(view, items, [{key:"n",label:"Product",left:true,fmt:(v,x)=>thumb(x.pi,"tth")+`<b>${esc(v)}</b>`},{key:"cat",label:"Category",left:true},{key:"rev",label:"Revenue",fmt:v=>fmtC(Math.round(v),true)},{key:"uni",label:"Units",fmt:v=>fmtN(Math.round(v))},{key:"ord",label:"Orders",fmt:v=>fmtN(Math.round(v))},{key:"unit",label:"Unit price",fmt:v=>fmtC(Math.round(v),true)},{key:"list",label:"List price",fmt:v=>fmtC(v,true)},{key:"margin",label:"Margin",fmt:v=>fmtP(v)},{key:"contrib",label:"Contribution",fmt:v=>fmtC(Math.round(v),true)},{key:"yoy",label:"YoY",fmt:v=>v===null?"–":`<b class="${v>=0?"up":"down"}">${v>=0?"+":""}${v.toFixed(1)}%</b>`},{key:"stock",label:"Stock cover",fmt:(v,x)=>tag(v+" d",x.stockRead==="At risk"?"bad":x.stockRead==="Watch"?"warn":"good")}], ctx, {title:"Full product matrix"});
   makeCanvas({ id:"prod", host:"#prodCanvas",
     tabs:[{id:"rank",label:"Ranking",icon:ICO.chart,render:ranking},{id:"cards",label:"Product cards",icon:ICO.box,render:cards},{id:"matrix",label:"Price vs volume",icon:ICO.trend,render:matrix},{id:"data",label:"Full data",icon:ICO.sort,render:data}],
