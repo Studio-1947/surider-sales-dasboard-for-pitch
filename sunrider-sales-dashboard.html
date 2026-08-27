@@ -70,15 +70,15 @@ body{
 .side .sfoot{margin-top:auto; padding:12px 12px 0; font-size:11.5px; color:var(--muted); line-height:1.45;}
 .main{min-width:0;}
 .top{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--plane) 88%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--hair); padding:0 24px;}
-.toprow{display:flex; align-items:center; gap:12px; min-height:60px; flex-wrap:wrap; padding:6px 0;}
+.toprow{display:flex; align-items:center; gap:10px; min-height:60px; flex-wrap:wrap; padding:6px 0;}
 .timebar{height:auto; min-height:50px; padding:7px 0 9px; border-top:1px solid var(--hair); flex-wrap:wrap; gap:8px 14px;}
 .timebar .seg{flex-wrap:nowrap; overflow-x:auto; max-width:100%;}
 .custom{display:flex; gap:6px; align-items:center;}
 .timectl{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
 .navfilters{display:flex; align-items:center; gap:8px; margin-left:auto;}
-.navfilters select{padding:6px 8px; font-size:12.5px; max-width:150px; text-overflow:ellipsis;}
+.navfilters select{padding:6px 6px; font-size:12.5px; max-width:124px; text-overflow:ellipsis;}
 .timectl select{padding:6px 8px; font-size:12.5px;}
-.timectl .seg{flex-wrap:nowrap;} .timectl .seg button{padding:5px 10px; font-size:12.5px;}
+.timectl .seg{flex-wrap:nowrap;} .timectl .seg button{padding:5px 8px; font-size:12.5px;}
 .scope{font-size:12.5px; color:var(--muted); white-space:nowrap;}
 .locals{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
 .top .brand{display:none; margin:0;}
@@ -86,9 +86,9 @@ body{
 .region{display:inline-flex; align-items:stretch; border:1px solid var(--hair); border-radius:9px; overflow:hidden; background:var(--surface); flex:none;}
 .region .country{display:inline-flex; align-items:center; gap:6px; padding:0 11px; font-size:13px; font-weight:600; background:var(--surface-2); color:var(--ink); border-right:1px solid var(--hair);}
 .region .country svg{width:14px; height:14px; stroke:#d0121b; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
-.region select{border:0; border-radius:0; background:var(--surface); padding:7px 10px; width:160px; text-overflow:ellipsis;}
+.region select{border:0; border-radius:0; background:var(--surface); padding:7px 10px; width:140px; text-overflow:ellipsis;}
 .top .crumb b{color:var(--ink); font-weight:600;}
-.search{flex:0 1 220px; display:flex; align-items:center; gap:8px; padding:7px 11px; border:1px solid var(--hair); border-radius:9px; background:var(--surface); color:var(--muted); font-size:13px; min-width:0;}
+.search{flex:0 1 180px; display:flex; align-items:center; gap:8px; padding:7px 11px; border:1px solid var(--hair); border-radius:9px; background:var(--surface); color:var(--muted); font-size:13px; min-width:0;}
 .search input{border:0; background:transparent; font:inherit; color:var(--ink); outline:0; width:100%; min-width:0;}
 .search svg{width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; flex:none;}
 .iconbtn{width:36px; height:36px; border-radius:9px; border:1px solid var(--hair); background:var(--surface); color:var(--ink-2); display:grid; place-items:center; cursor:pointer; position:relative;}
@@ -111,7 +111,10 @@ body{
 .page{display:none} .page.on{display:block; animation:fade .18s ease}
 @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
 .hl{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px;}
-.hl button{all:unset; box-sizing:border-box; display:block; cursor:pointer; background:var(--surface-2); border-radius:10px; padding:12px 14px; border:1px solid transparent;}
+.hl button{all:unset; box-sizing:border-box; display:flex; gap:12px; align-items:flex-start; cursor:pointer; background:var(--surface-2); border-radius:10px; padding:12px 14px; border:1px solid transparent; min-width:0;}
+.hl button>div{min-width:0}
+.hl .hi{width:34px; height:34px; border-radius:9px; background:var(--surface); display:grid; place-items:center; color:var(--accent); flex:none; margin-top:2px}
+.hl .hi .ico{width:17px; height:17px; margin:0}
 .hl button:hover{border-color:var(--accent)}
 .hl .k{font-family:"Google Sans Flex",system-ui,sans-serif; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);}
 .hl .v{font-size:15px; font-weight:600; margin:3px 0 2px; letter-spacing:-.01em;}
@@ -205,11 +208,22 @@ body{
 .st.on{stroke:var(--accent); stroke-width:2;}
 .pin{cursor:pointer}
 .pinlay{grid-template-columns:minmax(280px,520px) minmax(0,1fr);}
-.distlay{grid-template-columns:minmax(240px,340px) minmax(0,1fr);}
+.distlay{grid-template-columns:minmax(280px,440px) minmax(0,1fr); align-items:stretch;}
+.distlay>div:first-child{display:flex; flex-direction:column; justify-content:center;}
+.ico{width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; vertical-align:-2px; margin-right:5px; flex:none;}
+th .ico{width:12px; height:12px; margin-right:4px; vertical-align:-1px; opacity:.8}
+.tier .ico{width:11px; height:11px; margin-right:4px; vertical-align:-1px; stroke:#fff}
+.dav{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; font-size:10.5px; font-weight:700; color:#fff; margin-right:9px; vertical-align:middle; letter-spacing:.02em}
+.pinsum>div{display:flex; gap:10px; align-items:center} .pinsum>div>div{display:block; min-width:0}
+.pinsum{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.pinsum .k{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pinsum .pi{width:34px; height:34px; border-radius:9px; background:var(--surface); display:grid; place-items:center; color:var(--accent); flex:none}
+.pinsum .pi .ico{width:17px; height:17px; margin:0}
+.tblfoot{font-size:12px; color:var(--muted); padding:8px 2px 0}
 @media(max-width:1150px){.distlay,.pinlay{grid-template-columns:1fr} .distlay>div:first-child,.pinlay>.plot{max-width:480px; margin:0 auto; width:100%}}
 .pinsum{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
 .pinsum .v{white-space:nowrap}
-#distTbl th,#distTbl td{padding:7px 8px; font-size:12.5px}
+#distTbl th,#distTbl td{padding:6px 6px; font-size:12.5px}
 #distTbl td:nth-child(2){white-space:normal; min-width:120px}
 #distTbl td:nth-child(2) small{display:block}
 .tier{display:inline-block; font-size:10.5px; font-weight:600; letter-spacing:.04em; padding:1px 7px; border-radius:999px; color:#fff;}
@@ -624,12 +638,12 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       </div>
       <div class="maplay distlay">
         <div><div class="plot" id="distMap"></div><div class="legend" id="distLeg"></div></div>
-        <div><div class="pinsum" id="distSum"></div><div class="tblwrap" style="max-height:520px;overflow:auto"><table id="distTbl"><thead></thead><tbody></tbody></table></div></div>
+        <div><div class="pinsum" id="distSum"></div><div class="tblwrap" style="max-height:560px;overflow:auto"><table id="distTbl" class="compact"><thead></thead><tbody></tbody></table></div><div class="tblfoot" id="distFoot"></div></div>
       </div>
     </section>
     <section class="card c12">
       <div class="chead"><div><h2>Coverage by state</h2><p class="note">Distributors, team strength and attributed revenue in every state and union territory · click a row to focus that state</p></div></div>
-      <div class="tblwrap" style="max-height:480px;overflow:auto"><table id="distState" class="compact"><thead><tr><th>State / UT</th><th>Distributors</th><th>Diamond</th><th>Gold</th><th>Silver</th><th>Bronze</th><th>Team</th><th>Revenue</th><th>Per distributor</th></tr></thead><tbody></tbody></table></div>
+      <div class="tblwrap"><table id="distState" class="compact"><thead></thead><tbody></tbody></table></div>
     </section>
   </div>
 
@@ -1479,6 +1493,29 @@ function drawMap(d){
 
 /* ---------- distributor network ---------- */
 const TIERCOL = ["#6a3fd1","#d4a017","#8a94a6","#b5651d"];
+const ICO = {
+  people:'<svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4a3.5 3.5 0 010 7M21.5 20a6.5 6.5 0 00-4.5-6.2"/></svg>',
+  person:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>',
+  pin:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 0112 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>',
+  cal:'<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  rupee:'<svg class="ico" viewBox="0 0 24 24"><path d="M6 4h12M6 9h12M6 4c6 0 8 2 8 5s-2 5-8 5l8 6"/></svg>',
+  trend:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>',
+  share:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.5 5"/></svg>',
+  gem:'<svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6 3-6M9 9l3 12 3-12"/></svg>',
+  medal:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="14" r="6"/><path d="M8.5 3l3.5 6 3.5-6M12 11.5l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3z"/></svg>',
+  star:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>',
+  shield:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>',
+  net:'<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5.5 5M12 11.5l5.5 5"/></svg>',
+  map:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14"/></svg>',
+  sort:'<svg class="ico" viewBox="0 0 24 24"><path d="M8 4v16M8 20l-3-3M8 20l3-3M16 20V4M16 4l-3 3M16 4l3 3"/></svg>',
+  box:'<svg class="ico" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',
+  chart:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>',
+  tag:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>',
+  refresh:'<svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 01-14 5.3M4 12a8 8 0 0114-5.3M4 4v5h5M20 20v-5h-5"/></svg>',
+  mega:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6l-7 4zM17 9a4 4 0 010 6M19.5 6.5a8 8 0 010 11"/></svg>'
+};
+const TIERICO = [ICO.gem, ICO.medal, ICO.star, ICO.shield];
+const initials = n => n.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
 function drawDistributors(d, dp){
   const DS = DATA.distributors, TI = DATA.tiers;
   const stRev = new Array(STATES.length).fill(0), stOrd = new Array(STATES.length).fill(0), pRev = new Array(STATES.length).fill(0);
@@ -1492,7 +1529,7 @@ function drawDistributors(d, dp){
   const k=L.distSort, dir=L.distDir;
   vis.sort((a,b)=> typeof a[k]==="string" ? dir*a[k].localeCompare(b[k]) : dir*((a[k]??-1e18)-(b[k]??-1e18)));
   const tot = vis.reduce((a,r)=>a+r.rev,0), team = vis.reduce((a,r)=>a+r.team,0);
-  $("#distSum").innerHTML = `<div><div class="k">Distributors</div><div class="v">${fmtN(vis.length)}</div></div><div><div class="k">Team members</div><div class="v">${fmtN(team)}</div></div><div><div class="k">Avg revenue each</div><div class="v">${fmtC(vis.length?tot/vis.length:0)}</div></div>`;
+  $("#distSum").innerHTML = `<div><span class="pi">${ICO.net}</span><div><div class="k">Distributors</div><div class="v">${fmtN(vis.length)}</div></div></div><div><span class="pi">${ICO.people}</span><div><div class="k">Team members</div><div class="v">${fmtN(team)}</div></div></div><div><span class="pi">${ICO.rupee}</span><div><div class="k">Avg revenue each</div><div class="v">${fmtC(vis.length?tot/vis.length:0)}</div></div></div>`;
   $("#distNote").textContent = `${vis.length} local distributors ${S.state>=0?"in "+STATES[S.state]:"across "+new Set(vis.map(r=>r.s)).size+" states and union territories"} · ${fmtC(tot)} of ${perLabel()} revenue attributed by distributor weight · click a column to sort`;
   /* map dots */
   const host = $("#distMap"), svg = document.importNode($("#indiaTpl").content.firstElementChild, true);
@@ -1507,19 +1544,22 @@ function drawDistributors(d, dp){
     svg.appendChild(c);
   });
   host.innerHTML=""; host.appendChild(svg);
-  $("#distLeg").innerHTML = TI.map((t,i)=>`<span><i style="background:${TIERCOL[i]};border-radius:50%"></i>${t} (${rows.filter(r=>r.t===i && (S.state<0||r.s===S.state)).length})</span>`).join("");
+  $("#distLeg").innerHTML = TI.map((t,i)=>`<span style="color:${TIERCOL[i]}">${TIERICO[i]}<span style="color:var(--ink-2)">${t} (${rows.filter(r=>r.t===i && (S.state<0||r.s===S.state)).length})</span></span>`).join("");
+  $("#distLeg").style.justifyContent="center";
   /* coverage by state */
   const byState = STATES.map((s,si)=>{ const xs=rows.filter(r=>r.s===si); return {si,s,n:xs.length,t:[0,1,2,3].map(t=>xs.filter(r=>r.t===t).length),team:xs.reduce((a,r)=>a+r.team,0),rev:xs.reduce((a,r)=>a+r.rev,0)}; }).filter(x=>x.n).sort((a,b)=>b.rev-a.rev);
-  $("#distState tbody").innerHTML = byState.map(x=>`<tr class="clickable" data-si="${x.si}" style="${S.state===x.si?"background:var(--accent-soft)":""}"><td>${x.s}</td><td>${x.n}</td><td>${x.t[0]||""}</td><td>${x.t[1]||""}</td><td>${x.t[2]||""}</td><td>${x.t[3]||""}</td><td>${fmtN(x.team)}</td><td>${fmtC(x.rev)}</td><td>${fmtC(x.n?x.rev/x.n:0)}</td></tr>`).join("");
+  $("#distState thead").innerHTML = `<tr><th>${ICO.map}State / UT</th><th>${ICO.net}Distributors</th><th>${ICO.gem}Diamond</th><th>${ICO.medal}Gold</th><th>${ICO.star}Silver</th><th>${ICO.shield}Bronze</th><th>${ICO.people}Team</th><th>${ICO.rupee}Revenue</th><th>${ICO.person}Per distributor</th></tr>`;
+  $("#distState tbody").innerHTML = byState.map(x=>`<tr class="clickable" data-si="${x.si}" style="${S.state===x.si?"background:var(--accent-soft)":""}"><td>${ICO.pin}${x.s}</td><td>${x.n}</td><td>${x.t[0]||""}</td><td>${x.t[1]||""}</td><td>${x.t[2]||""}</td><td>${x.t[3]||""}</td><td>${fmtN(x.team)}</td><td>${fmtC(x.rev)}</td><td>${fmtC(x.n?x.rev/x.n:0)}</td></tr>`).join("");
   $("#distState tbody").querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",()=>{ const si=+tr.dataset.si; S.state = S.state===si ? -1 : si; syncSelects(); render(); }));
   /* table */
-  const COLS3=[["n","Distributor"],["m","Location"],["t","Tier"],["team","Team"],["j","Since"],["rev","Revenue"],["sh","Share"],["yoy","YoY"]];
+  const COLS3=[["n",ICO.person+"Distributor"],["m",ICO.pin+"Location"],["t",ICO.gem+"Tier"],["team",ICO.people+"Team"],["j",ICO.cal+"Since"],["rev",ICO.rupee+"Revenue"],["sh",ICO.share+"Share"],["yoy",ICO.trend+"YoY"]];
   const thead=$("#distTbl thead"), tbody=$("#distTbl tbody");
   thead.innerHTML="<tr>"+COLS3.map(([key,l])=>`<th data-k="${key}" aria-sort="${k===key?(dir<0?"descending":"ascending"):"none"}">${l}${k===key?(dir<0?" ↓":" ↑"):""}</th>`).join("")+"</tr>";
   thead.querySelectorAll("th").forEach(t=>t.addEventListener("click",()=>{ const key=t.dataset.k==="sh"?"rev":t.dataset.k; if(L.distSort===key) L.distDir*=-1; else {L.distSort=key; L.distDir = key==="n"||key==="m"||key==="t"?1:-1;} render(); }));
-  tbody.innerHTML = vis.map(r=>`<tr><td>${r.n}</td><td style="text-align:left">${DATA.cities[r.m]}${r.m<9?`<small style="color:var(--muted)"> · ${STATES[r.s]}</small>`:""}</td>
-    <td style="text-align:left"><span class="tier" style="background:${TIERCOL[r.t]}">${TI[r.t]}</span></td><td>${fmtN(r.team)}</td><td>${r.j}</td><td>${fmtC(r.rev)}</td><td>${fmtP(pct(r.rev,tot))}</td>
+  tbody.innerHTML = vis.map(r=>`<tr><td><span class="dav" style="background:${TIERCOL[r.t]}">${initials(r.n)}</span>${r.n}</td><td style="text-align:left">${ICO.pin}${DATA.cities[r.m]}${r.m<9?`<small style="color:var(--muted)"> · ${STATES[r.s]}</small>`:""}</td>
+    <td style="text-align:left"><span class="tier" style="background:${TIERCOL[r.t]}">${TIERICO[r.t]}${TI[r.t]}</span></td><td>${fmtN(r.team)}</td><td>${r.j}</td><td>${fmtC(r.rev)}</td><td>${fmtP(pct(r.rev,tot))}</td>
     <td class="${r.yoy===null?"":r.yoy>=0?"up":"down"}" style="font-weight:600">${r.yoy===null?"n/a":(r.yoy>=0?"▲ ":"▼ ")+Math.abs(r.yoy).toFixed(1)+"%"}</td></tr>`).join("") || `<tr><td colspan="8" style="text-align:left;color:var(--muted)">No distributors match</td></tr>`;
+  $("#distFoot").innerHTML = `${ICO.sort}${vis.length} distributors listed · sorted by ${ {n:"name",m:"location",t:"tier",team:"team size",j:"join year",rev:"revenue",yoy:"year-on-year change"}[k] } · scroll inside the table for more`;
 }
 
 /* ---------- pincode drill-down (pincodes.json: postal boundaries per metro + pincode lookup) ---------- */
@@ -1721,7 +1761,8 @@ function drawHighlights(cur, prv, range){
   const ads = aggAds(range); items.push(["Paid media", `${ads.roas.toFixed(2)}× ROAS`, `${fmtC(ads.spend)} spend · ${fmtC(ads.rev)} attributed`, "social"]);
   items.push(["Repeat buying", fmtP(cur.repRate)+" of orders", `${fmtN(cur.rep)} repeat · ${fmtN(cur.new)} first-time`, "buyers"]);
   items.push(["Distributor network", `${DATA.distributors.filter(x=>S.state<0||x.s===S.state).length} distributors`, S.state<0?"across 36 states and UTs":"in "+STATES[S.state], "dist"]);
-  host.innerHTML = items.map(([k,v,s,pg])=>`<button type="button" data-pg="${pg}"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></button>`).join("");
+  const HICO = {"Top category":ICO.box,"Leading channel":ICO.chart,"Best-selling product":ICO.tag,"Fastest grower":ICO.trend,"Year on year":ICO.cal,"Strongest state":ICO.pin,"Paid media":ICO.mega,"Repeat buying":ICO.refresh,"Distributor network":ICO.net};
+  host.innerHTML = items.map(([k,v,s,pg])=>`<button type="button" data-pg="${pg}"><span class="hi">${HICO[k]||ICO.star}</span><div><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div></button>`).join("");
   host.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.pg)));
 }
 /* profile popover + demo modals */
