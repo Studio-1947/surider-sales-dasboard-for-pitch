@@ -34,3 +34,11 @@ The site is fully static (no build step). `vercel.json` sets `framework: null`, 
 3. Nothing else is required: fonts come from Google Fonts, product images from Sunrider's CDN, and `pincodes.json` is fetched from the same origin, so the pincode panel works on Vercel.
 
 Local preview: `python3 -m http.server 8081` in the repo folder, then open `http://localhost:8081/`.
+
+## Access password
+
+`middleware.js` is a Vercel Edge Middleware that gates every path (HTML, JSON, SVG). Visitors get a branded login page at `/login`; a correct password sets a 30-day HttpOnly session cookie, and `/logout` (also the Sign out item in the profile menu) clears it.
+
+The password is read from the `SITE_PASSWORD` environment variable in Vercel (Project → Settings → Environment Variables, then redeploy). If the variable is not set, the fallback in `middleware.js` is used. To rotate the password, change the variable and redeploy; existing sessions stop working immediately because the cookie is derived from the password.
+
+The gate only runs on Vercel. The local preview server does not enforce it.

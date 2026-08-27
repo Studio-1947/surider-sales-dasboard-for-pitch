@@ -1789,7 +1789,7 @@ function drawHighlights(cur, prv, range){
     modal.classList.add("on"); setTimeout(()=>body.querySelector("input")?.focus(),50);
   }
   pop.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const a=b.dataset.act;
-    if(a==="profile"||a==="password") openModal(a); else if(a==="theme"){ closePop(); themeBtn.click(); } else { closePop(); say("Signed out (demo). Refresh to come back."); } }));
+    if(a==="profile"||a==="password") openModal(a); else if(a==="theme"){ closePop(); themeBtn.click(); } else { closePop(); if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || location.protocol==="file:") say("Signed out (demo). Refresh to come back."); else location.href="/logout"; } }));
   $("#modalCancel").addEventListener("click",()=>modal.classList.remove("on"));
   modal.addEventListener("click",ev=>{ if(ev.target===modal) modal.classList.remove("on"); });
   $("#modalForm").addEventListener("submit",ev=>{ ev.preventDefault();
