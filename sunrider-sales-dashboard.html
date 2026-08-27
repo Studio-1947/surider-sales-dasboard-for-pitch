@@ -756,7 +756,7 @@ function prevRange(per){
 }
 const spanLabel = (a,b) => a===b-1 ? NM[a] : NM[a]+" – "+NM[b-1];
 const perLabel = () => S.per==="C" ? spanLabel(S.from, S.to+1) : (S.per==="Y" ? "" : "Q"+S.per+" ") + DATA.fiscalYears[S.fy];
-const prevLabel = () => S.per==="C" ? spanLabel(S.from-12, S.to+1-12)+" (a year earlier)" : (S.per==="Y" ? "" : "Q"+S.per+" ") + DATA.fiscalYears[S.fy-1];
+const prevLabel = () => S.per==="C" ? spanLabel(S.from-12, S.to+1-12) : (S.per==="Y" ? "" : "Q"+S.per+" ") + DATA.fiscalYears[S.fy-1];
 
 /* ---------- aggregation ---------- */
 function agg(range){
@@ -1686,7 +1686,7 @@ function render(){
   drawChips();
   const catName = S.cat<0 ? "the full catalogue" : CATS[S.cat];
   const scope = [perLabel(), S.state<0?"All India":STATES[S.state], S.chan<0?"all channels":CHANS[S.chan]].join(" · ");
-  $("#scopeLbl").textContent = `${perLabel()} · ${NM[range[0]]} – ${NM[range[1]-1]} · ${range[1]-range[0]} month${range[1]-range[0]>1?"s":""}`;
+  $("#scopeLbl").textContent = (S.per==="C" ? "Custom range" : perLabel()) + ` · ${NM[range[0]]} – ${NM[range[1]-1]} · ${range[1]-range[0]} month${range[1]-range[0]>1?"s":""}`;
   $("#foot").textContent =
     `Showing ${catName} · ${scope} · ${NM[range[0]]} – ${NM[range[1]-1]} · ${fmtC(cur.rev,true)} across ${fmtN(cur.ord)} orders and ${fmtN(cur.uni)} units. `+
     `Sales figures are modelled sample data over Sunrider's real product catalogue. Replace the embedded dataset with an order export to make this live.`;
