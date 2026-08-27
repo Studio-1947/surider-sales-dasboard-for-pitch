@@ -45,7 +45,7 @@ button{margin-top:14px;width:100%;font:inherit;font-size:14.5px;font-weight:600;
   <label for="pw">Password</label>
   <input id="pw" name="password" type="password" required autofocus placeholder="Enter password">
   <button type="submit">Open dashboard</button>
-  <div class="foot">Sunrider India · Sales Dashboard · Draft version with mock data by Studio1947</div>
+  <div class="foot">Sunrider India · Sales Dashboard<br>Draft version with mock data by Studio1947</div>
 </form></body></html>`;
 
 export default async function middleware(request) {
