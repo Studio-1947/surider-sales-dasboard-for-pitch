@@ -25,6 +25,16 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 
 Typeface: Google Sans Flex. Light theme by default.
 
+## Analytics layer (teardown response)
+
+Built in response to the Studio 1947 build review (27 Aug 2026), all on the modelled data:
+
+- Blockers: state filters never fall back to all-India (explicit empty and small-sample banners), every market has orders behind its revenue, and the navigation collapses into a slide-over sheet with search below 900px.
+- Trust: one last-click attribution model (Meta, Google and YouTube ads are channels and match the ads page), a 0.05 dead band so no change reads as a decline, rupee-weighted movers with a materiality floor and an "emerging, small base" list, Pareto-skewed distributor revenue with tiers by volume, and channel-specific AOV and repeat behaviour.
+- Gaps: customer estimates with cohort retention, time to second order, LTV and CAC by channel; contribution margin by SKU and by channel; distributor health (active rate, signups, dormancy, time to first sale); coverage versus potential by state on household counts; target versus actual with price/volume/mix and new/repeat decomposition; and exception tiles computed from thresholds each refresh.
+
+Cost of goods, commission rates, households, targets, stock cover and cohort curves are modelled inputs in `data.json`; swap them for real files when available.
+
 ## Deploy on Vercel
 
 The site is fully static (no build step). `vercel.json` sets `framework: null`, serves the repo root, rewrites `/` to `sunrider-sales-dashboard.html`, and caches the two JSON files. `index.html` is a fallback redirect for hosts that ignore `vercel.json` (GitHub Pages, Netlify).
