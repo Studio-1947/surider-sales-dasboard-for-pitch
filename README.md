@@ -5,6 +5,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - `sunrider-sales-dashboard.html` - the dashboard (open directly, or serve with `python3 -m http.server 8081`)
 - `data.json` - the same dataset in a standalone file (also embedded in the HTML as `DATA`)
 - `india-states.svg` - India state outlines used for the geography map (Simplemaps, free for commercial use; attribution appreciated)
+- `pincodes.json` - simplified postal pincode boundaries for the nine metros (from the all-India pincode boundary KML) plus a pincode to state/district lookup; fetched on demand, so serve the folder over http for the pincode panel
 
 ## What is in it
 
@@ -16,7 +17,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
 - Buyers: new vs repeat, age and gender.
 - Social media and paid ads: spend vs attributed revenue, platform breakdown (Meta, YouTube, Google), Meta funnel, campaigns table, brand sentiment by platform and theme.
-- Geography: state choropleth with metro pins, sortable city bars.
+- Geography: every state shaded on the choropleth, metro pins, market bars (Top 12 / all), and a pincode drill-down per metro (real postal boundaries, modelled revenue split, pincode search).
 - Sortable, searchable product table.
 - Every large card has its own local filters; global filters show as removable chips.
 
