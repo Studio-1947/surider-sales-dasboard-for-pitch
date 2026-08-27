@@ -13,6 +13,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Sticky header: India + state selector, product search, theme capsule; second row with fiscal year, Full year / Q1-Q4 / Custom month range.
 - Left sidebar navigation with scroll-spy and the signed-in profile.
 - Overview KPIs, monthly trend with prior-year overlay.
+- Year-on-year comparison: FY2026 vs FY2025 grouped monthly bars, scorecard, and category / channel / state movers.
 - Sales channels (direct sale, membership, WhatsApp, affiliate): stacked chart, mix, category x channel heatmap.
 - Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
 - Buyers: new vs repeat, age and gender.

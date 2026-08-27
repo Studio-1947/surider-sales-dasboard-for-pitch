@@ -317,6 +317,7 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       </div>
     <div class="grp">Dashboard</div>
     <a class="nav" href="#sec-overview" aria-current="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg> Overview</a>
+    <a class="nav" href="#sec-yoy"><svg viewBox="0 0 24 24"><path d="M4 18h16M6 15V9M10 15V5M14 15v-4M18 15V7"/><path d="M6 9l4-4 4 4 4-3"/></svg> YoY comparison</a>
     <a class="nav" href="#sec-channels"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg> Sales channels</a>
     <a class="nav" href="#sec-products"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg> Products</a>
     <a class="nav" href="#sec-buyers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4a3.5 3.5 0 010 7M21.5 20a6.5 6.5 0 00-4.5-6.2"/></svg> Buyers</a>
@@ -423,6 +424,31 @@ foot, .foot{display:block; margin-top:26px; padding-top:14px; border-top:1px sol
       </div>
       <div class="plot" id="trend"></div>
       <div class="legend" id="trendLeg"></div>
+    </section>
+  </div>
+
+  <div class="sechead" id="sec-yoy"><h2>Year-on-year comparison</h2><p id="yoyNote">FY2026 against FY2025 for the selected period, under the current state, channel and category filters</p></div>
+  <div class="grid">
+    <section class="card c7">
+      <div class="chead"><div><h2 id="yoyTitle">Revenue by month, both years</h2><p class="note">Same month of each fiscal year side by side</p></div><div class="spacer"></div><div class="seg mini" role="group" data-local="yoyMet"><button type="button" data-v="rev" aria-pressed="true">Revenue</button><button type="button" data-v="ord" aria-pressed="false">Orders</button><button type="button" data-v="uni" aria-pressed="false">Units</button><button type="button" data-v="aov" aria-pressed="false">AOV</button></div></div>
+      <div class="plot" id="yoyChart"></div>
+      <div class="legend" id="yoyLeg"></div>
+    </section>
+    <section class="card c5">
+      <div class="chead"><div><h2>Scorecard</h2><p class="note">Headline metrics, both years</p></div></div>
+      <div class="tblwrap"><table id="yoyTbl"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="card c4">
+      <div class="chead"><div><h2>By category</h2><p class="note">Revenue change year on year</p></div></div>
+      <div class="rows" id="yoyCat"></div>
+    </section>
+    <section class="card c4">
+      <div class="chead"><div><h2>By channel</h2><p class="note">Revenue change year on year</p></div></div>
+      <div class="rows" id="yoyChan"></div>
+    </section>
+    <section class="card c4">
+      <div class="chead"><div><h2>By state</h2><p class="note">Biggest movers, revenue change year on year</p></div></div>
+      <div class="rows" id="yoyState"></div>
     </section>
   </div>
 
@@ -588,7 +614,7 @@ const fmtP = v => v.toFixed(1) + "%";
 
 /* ---------- state ---------- */
 let LASTD = null;
-const L = { distTier:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
+const L = { yoyMet:"rev", distTier:-1, distSort:"rev", distDir:-1, distQ:"",  geoN:12, chanMet:"rev", chanMode:"stack", prodSort:"rev", prodN:12, heatMet:"rev", movN:6, repMode:"count", geoMet:"rev", adPlat:-1, sentPlat:-1 };
 const S = { fy: 1, per: "Y", from: 12, to: 23, cat: -1, state: -1, chan: -1, metric: "rev", sortKey: "rev", sortDir: -1, table: true, q: "", hide: new Set() };
 const NM = DATA.monthLabels, CATS = DATA.categories, PRODS = DATA.products;
 const STATES = DATA.states, CHANS = DATA.channels, CST = DATA.cityState;
@@ -1006,6 +1032,55 @@ function drawChannels(cur, range){
     rows.appendChild(el);
   });
   $("#chanNote").textContent = S.chan>=0 ? `Filtered to ${CHANS[S.chan]}. Clear the Channel filter to compare` : "Share of revenue in the selected period";
+}
+
+/* ---------- year-on-year comparison ---------- */
+function yoyRanges(){
+  if (S.per==="C"){ const len=S.to+1-S.from; if (S.from>=12) return [[S.from-12,S.to+1-12],[S.from,S.to+1]]; if (S.to<12 && S.from+12<=23) return [[S.from,S.to+1],[S.from+12,S.to+13]]; return [[0,12],[12,24]]; }
+  return [rangeFor(S.per,0), rangeFor(S.per,1)];
+}
+function chgHtml(a,b,pts){ if(!a) return `<span style="color:var(--muted)">n/a</span>`; const ch = pts ? b-a : (b-a)/a*100; const up=ch>=0; return `<b class="${up?"up":"down"}">${up?"▲":"▼"} ${Math.abs(ch).toFixed(1)}${pts?" pts":"%"}</b>`; }
+function chgRows(host, items, fmt){
+  host.innerHTML=""; const mx = Math.max(...items.map(x=>Math.abs(x.ch)),1);
+  items.forEach(x=>{ const el=document.createElement("div"); el.className="row";
+    el.innerHTML=`<div class="nm">${x.dot?`<span class="dot" style="background:${x.dot}"></span>`:""}${x.label}</div><div class="vl">${chgHtml(x.a,x.b)} <span style="color:var(--muted);font-weight:400">· ${fmt(x.b)} vs ${fmt(x.a)}</span></div>
+      <div class="track" style="background:var(--surface-2)"><div class="fill" style="width:${(Math.abs(x.ch)/mx*100).toFixed(1)}%;background:${x.ch>=0?"var(--pos)":"var(--neg)"}"></div></div>`;
+    host.appendChild(el); });
+}
+function drawYoY(){
+  const [rp, rc] = yoyRanges(), a = agg(rp), b = agg(rc), FY = DATA.fiscalYears;
+  const sub = S.per==="C" ? `${NM[rc[0]]} – ${NM[rc[1]-1]} vs ${NM[rp[0]]} – ${NM[rp[1]-1]}` : (S.per==="Y"?"full year":"Q"+S.per);
+  $("#yoyNote").textContent = `${FY[1]} against ${FY[0]}, ${sub}, under the current state, channel and category filters`;
+  /* grouped bars */
+  const met = METRICS[L.yoyMet], va = a.months.map(met.get), vb = b.months.map(met.get), labels = NM.slice(rc[0],rc[1]).map(l=>l.split(" ")[0]);
+  const host=$("#yoyChart"), W=Math.max(320,host.clientWidth), H=260, M={t:12,r:10,b:28,l:62}, iw=W-M.l-M.r, ih=H-M.t-M.b;
+  const ticks=niceTicks(Math.max(...va,...vb,1)*1.08), top=ticks[ticks.length-1], sy=v=>M.t+ih-v/top*ih, n=labels.length, gw=iw/n, bw=Math.min(22, gw*0.32);
+  const g=[];
+  ticks.forEach(t=>{ g.push(e("line",{x1:M.l,x2:W-M.r,y1:sy(t),y2:sy(t),style:"stroke:var(--hair)"})); g.push(e("text",{x:M.l-10,y:sy(t)+4,"text-anchor":"end",style:"fill:var(--muted);font-size:11px"},[txt(met.axis(t))])); });
+  labels.forEach((l,i)=>{
+    const cx=M.l+(i+0.5)*gw;
+    [[va[i],cx-bw-1,"var(--axis)",FY[0]],[vb[i],cx+1,"var(--s1)",FY[1]]].forEach(([v,x,col,fy])=>{
+      const r=e("rect",{x,y:sy(v),width:bw,height:Math.max(0,M.t+ih-sy(v)),rx:3,style:`fill:${col}`});
+      r.addEventListener("mousemove",ev=>tipShow(`<span class="t">${l}</span>`+tipRow(FY[0],met.fmt(va[i]))+tipRow(FY[1],met.fmt(vb[i]))+tipRow("Change",(va[i]?((vb[i]-va[i])/va[i]*100).toFixed(1)+"%":"n/a")),ev));
+      r.addEventListener("mouseleave",tipHide); g.push(r); });
+    if (i % (W<560 ? Math.ceil(n/6) : 1) === 0) g.push(e("text",{x:cx,y:H-8,"text-anchor":"middle",style:"fill:var(--muted);font-size:11px"},[txt(l)]));
+  });
+  host.innerHTML=""; host.appendChild(e("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":met.label+" for both fiscal years"},g));
+  $("#yoyTitle").textContent = met.label.replace(" by month","")+" by month, both years";
+  $("#yoyLeg").innerHTML = `<span><i style="background:var(--axis)"></i>${FY[0]}</span><span><i style="background:var(--s1)"></i>${FY[1]}</span>`;
+  /* scorecard */
+  const ad0=aggAds(rp), ad1=aggAds(rc);
+  const rows=[["Revenue",a.rev,b.rev,v=>fmtC(v)],["Orders",a.ord,b.ord,fmtN],["Units",a.uni,b.uni,fmtN],["Avg order value",a.aov,b.aov,v=>fmtC(v,true)],["Repeat order rate",a.repRate,b.repRate,fmtP,true],["Ad spend",ad0.spend,ad1.spend,v=>fmtC(v)],["Ad-attributed revenue",ad0.rev,ad1.rev,v=>fmtC(v)],["Blended ROAS",ad0.roas,ad1.roas,v=>v.toFixed(2)+"×"]];
+  $("#yoyTbl thead").innerHTML=`<tr><th>Metric</th><th>${FY[0]}</th><th>${FY[1]}</th><th>Change</th></tr>`;
+  $("#yoyTbl tbody").innerHTML=rows.map(([l,x,y,f,pts])=>`<tr><td>${l}</td><td>${f(x)}</td><td style="color:var(--ink);font-weight:600">${f(y)}</td><td>${chgHtml(x,y,pts)}</td></tr>`).join("");
+  /* category / channel / state */
+  chgRows($("#yoyCat"), CATS.map((c,i)=>({label:c,dot:`var(${SERIES[i]})`,a:a.byCat[i],b:b.byCat[i],ch:a.byCat[i]?(b.byCat[i]-a.byCat[i])/a.byCat[i]*100:0})).filter(x=>x.a||x.b).sort((x,y)=>y.ch-x.ch), v=>fmtC(v));
+  const c0=aggChan(rp).tot, c1=aggChan(rc).tot;
+  chgRows($("#yoyChan"), CHANS.map((c,k)=>({label:c,dot:`var(${CHANCOL[k]})`,a:c0[k].rev,b:c1[k].rev,ch:c0[k].rev?(c1[k].rev-c0[k].rev)/c0[k].rev*100:0})).sort((x,y)=>y.ch-x.ch), v=>fmtC(v));
+  const d0=aggDemo(rp), d1=aggDemo(rc), s0=new Array(STATES.length).fill(0), s1=new Array(STATES.length).fill(0);
+  d0.cities.forEach((v,i)=>s0[CST[i]]+=v); d1.cities.forEach((v,i)=>s1[CST[i]]+=v);
+  const st = STATES.map((s,i)=>({label:s,a:s0[i],b:s1[i],ch:s0[i]?(s1[i]-s0[i])/s0[i]*100:0})).filter(x=>x.a>0&&x.b>0).sort((x,y)=>y.ch-x.ch);
+  chgRows($("#yoyState"), st.length>8 ? [...st.slice(0,4),...st.slice(-4)] : st, v=>fmtC(v));
 }
 
 /* ---------- category x channel heatmap ---------- */
@@ -1430,6 +1505,7 @@ function render(){
   const cur = agg(range), prv = pr ? agg(pr) : null;
   renderKPIs(cur, prv);
   drawTrend(cur, range, prv);
+  drawYoY();
   drawProducts(cur);
   drawMix(cur);
   drawChannels(cur, range);
