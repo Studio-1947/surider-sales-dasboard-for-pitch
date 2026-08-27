@@ -12,7 +12,7 @@ Single-file, dependency-free sales dashboard for Sunrider India (modelled sample
 - Two fiscal years of modelled data: FY2025 (Apr 2024 - Mar 2025, mock prior year) and FY2026 (Apr 2025 - Mar 2026). Every comparison is year-on-year against the same period.
 - Sticky header: India + state selector, product search, fiscal year, Full year / Q1-Q4 / Custom month range, channel and category filters, theme capsule.
 - Left sidebar switches between pages (Overview, YoY comparison, Sales channels, Products, Buyers, Social & ads, Geography, Distributors, Product table); the profile at the bottom opens a demo popover with edit-profile and change-password dialogs (nothing is stored).
-- Overview KPIs, monthly trend with prior-year overlay, and a highlights digest linking into each page.
+- Overview KPIs (including completed orders), a monthly trend where any mix of Revenue / Orders placed / Completed / Cancelled / Abandoned carts / Units / AOV can be shown together as separately coloured lines, an order funnel (carts, checked out, placed, completed with abandonment and cancellation rates), monthly completed-vs-cancelled bars, target vs actual, growth decomposition and computed exceptions.
 - Year-on-year comparison: FY2026 vs FY2025 grouped monthly bars, scorecard, and category / channel / state movers.
 - Sales channels (direct sale, membership, WhatsApp, affiliate, Meta ads, Google ads): stacked chart, mix, category x channel heatmap. The two paid channels are derived from the ads table so channel and ad numbers reconcile.
 - Products: ranking with catalogue images from in.sunrider.com, category mix, year-on-year momentum.
