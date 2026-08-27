@@ -151,16 +151,24 @@ body{
 .hl button.act{border-left-color:var(--accent); cursor:default} .hl button.act .hi{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
 .hl button.act .v{color:var(--accent)} .hl .why{font-size:12px; color:var(--ink-2); margin-top:4px} .hl .do{font-size:12.5px; color:var(--ink); margin-top:6px; font-weight:500}
 .hl .conf{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--muted); white-space:nowrap}
-.hl.acts{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
-.hl button.act .top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px}
-.hl button.act .top .k{line-height:1.35}
-.hl button.act .imp{font-size:13px; font-weight:700; color:var(--ink); white-space:nowrap; letter-spacing:-.01em}
-.hl button.act .v{font-size:14.5px; line-height:1.3}
-.hl button.act .why{display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; line-height:1.4}
-.hl button.act .do{line-height:1.4}
-.hl button.act .rl{margin-top:auto; padding-top:8px; flex-wrap:nowrap}
-.hl button.act .rl .go{overflow:hidden; text-overflow:ellipsis}
-.hl button.act .rl .go span{font-weight:400}
+.hl.acts{grid-template-columns:1fr; gap:10px}
+.hl button.act{display:grid; grid-template-columns:34px minmax(200px,26%) minmax(0,1fr) 190px; gap:14px 18px; align-items:start; padding:14px 16px 14px 12px; border-left-width:4px}
+.hl button.act .hi{margin-top:0}
+.hl button.act .body{display:contents}
+.hl button.act .lead{min-width:0}
+.hl button.act .k{display:flex; align-items:center; gap:8px}
+.hl button.act .rank{display:inline-grid; place-items:center; width:20px; height:20px; border-radius:6px; background:var(--accent); color:var(--accent-ink); font-size:11px; font-weight:700; letter-spacing:0; flex:none}
+.hl button.act .v{font-size:15px; line-height:1.3; margin:6px 0 0}
+.hl button.act .txt{min-width:0; display:grid; gap:8px}
+.hl button.act .lbl{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
+.hl button.act .why{margin:0; font-size:12.5px; line-height:1.45; color:var(--ink-2)}
+.hl button.act .do{margin:0; font-size:13px; line-height:1.45; color:var(--ink); font-weight:500; background:var(--surface); border-radius:8px; padding:8px 10px; border:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
+.hl button.act .aside{display:flex; flex-direction:column; align-items:flex-end; gap:6px; text-align:right}
+.hl button.act .imp{font-size:20px; font-weight:700; letter-spacing:-.02em; color:var(--ink); line-height:1.1}
+.hl button.act .imp small{display:block; font-size:11px; font-weight:400; color:var(--muted); letter-spacing:0; margin-top:2px}
+.hl button.act .bar{width:100%; height:5px; border-radius:3px; background:var(--surface); overflow:hidden; margin-top:2px}
+.hl button.act .bar i{display:block; height:100%; background:var(--accent); border-radius:3px}
+@media(max-width:900px){.hl button.act{grid-template-columns:34px minmax(0,1fr)} .hl button.act .txt{grid-column:2} .hl button.act .aside{grid-column:2; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; text-align:left} .hl button.act .bar{display:none}}
 .hl button.act .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl button.act .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl button.act .conf.lo{color:var(--muted); background:var(--surface)}
 .hl .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl .conf.lo{color:var(--muted)}
 .pop{position:fixed; z-index:40; background:var(--surface); border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 32px -12px rgba(0,0,0,.4); padding:8px; width:240px;}
@@ -1520,7 +1528,8 @@ function drawActions(cur, prv, range){
   acts.sort((a,b)=>b.impact-a.impact);
   const total=acts.reduce((a,x)=>a+x.impact,0);
   $("#actNote").textContent = `${acts.length} actions worth an estimated ${fmtC(total)} in ${perLabel()} terms · impacts are modelled (recovery, reactivation and reallocation rates are assumptions to validate) · ranked by rupee impact`;
-  host.innerHTML = acts.map((a,i)=>`<button type="button" class="exc act" title="${esc(a.why)}"><span class="hi">${a.ico}</span><div class="body"><div class="top"><div class="k">${i+1} · ${a.t}</div><div class="imp">≈ ${fmtC(a.impact)}</div></div><div class="v">${a.v}</div><div class="why">${a.why}</div><div class="do">→ ${a.do}</div><div class="rl"><span class="conf ${a.conf}">${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] } confidence</span><span class="go">${fmtP(pct(a.impact,total))} <span>of the total</span></span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
+  const maxImp = acts.length ? acts[0].impact : 1;
+  host.innerHTML = acts.map((a,i)=>`<button type="button" class="exc act"><span class="hi">${a.ico}</span><div class="body"><div class="lead"><div class="k"><span class="rank">${i+1}</span>${a.t}</div><div class="v">${a.v}</div></div><div class="txt"><div><div class="lbl">Why</div><div class="why">${a.why}</div></div><div><div class="lbl">What to do</div><div class="do">${a.do}</div></div></div><div class="aside"><div class="imp">≈ ${fmtC(a.impact)}<small>${fmtP(pct(a.impact,total))} of the total · ${perLabel()}</small></div><div class="bar"><i style="width:${pct(a.impact,maxImp).toFixed(1)}%"></i></div><span class="conf ${a.conf}">${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] } confidence</span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
 }
 
 /* ---------- year-on-year comparison ---------- */
