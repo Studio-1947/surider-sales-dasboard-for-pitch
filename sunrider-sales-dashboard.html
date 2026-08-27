@@ -1047,6 +1047,7 @@ const METRICS = {
   abandoned:{label:"Abandoned carts by month", get:m=>m.abandoned||0, fmt:v=>fmtN(v), axis:v=>fmtN(v)}
 };
 function niceTicks(max){
+  if (!(max>0) || !isFinite(max)) return [0,1];
   const raw = max/5, mag = Math.pow(10, Math.floor(Math.log10(raw)));
   const step = [1,2,2.5,5,10].map(x=>x*mag).find(x=>x>=raw) || 10*mag;
   const out=[]; for(let v=0; v<=max+step*0.001; v+=step) out.push(v);
