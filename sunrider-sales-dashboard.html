@@ -194,6 +194,7 @@ body{
 .chips{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:-8px 0 16px; min-height:0;}
 .chip{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; padding:4px 8px 4px 10px; border-radius:999px; background:var(--accent-soft); color:var(--accent); border:1px solid transparent;}
 .chip button{all:unset; cursor:pointer; font-size:14px; line-height:1; padding:0 2px; opacity:.7;} .chip button:hover{opacity:1}
+.chip.scope{background:var(--surface-2); color:var(--muted); border-color:var(--hair)} .chip.scope b{font-weight:500; color:var(--ink-2)}
 .emptybar{background:var(--surface-2); border:1px solid var(--hair); border-radius:10px; padding:10px 14px; font-size:13px; color:var(--ink-2); margin:0 0 16px}
 .emptybar b{color:var(--ink)}
 .chips .clear{font-size:12.5px; color:var(--muted); background:none; border:0; cursor:pointer; text-decoration:underline; font-family:inherit;}
@@ -227,7 +228,7 @@ body{
 .ckpis{margin-bottom:14px}
 .ckpi .k{display:flex; align-items:center; gap:8px; justify-content:space-between}
 .ckpi .k .pi{color:var(--accent)} .ckpi .k .ico{width:14px; height:14px; margin:0}
-.ckpi .d{display:flex; justify-content:space-between; gap:4px 8px; font-size:12px; white-space:normal; flex-wrap:wrap; overflow:visible; text-overflow:clip} .ckpi .d span{white-space:normal; min-width:0}
+.kpis .kpi.ckpi .d{display:grid; grid-template-rows:auto auto; align-content:start; row-gap:2px; font-size:12px; overflow:hidden; white-space:normal} .kpis .kpi.ckpi .d span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0} .kpis .kpi.ckpi .d .spacer{display:none}
 .cview{min-height:120px}
 .cgrid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
 @media(max-width:1100px){.cgrid2{grid-template-columns:1fr}}
@@ -433,6 +434,11 @@ select{
 
 /* ---------- legend ---------- */
 .legend{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px; font-size:12.5px; color:var(--ink-2);}
+#trendLeg,#cohortLeg,#distLeg{min-height:44px; align-content:flex-start}
+.chead .note[id]{min-height:2.9em}
+#pinMap svg{height:540px !important; width:100%}
+.kpis .kpi.ckpi .d{min-height:34px}
+.cview{min-height:360px}
 .legend span{display:inline-flex; align-items:center; gap:6px;}
 .legend i{width:10px; height:10px; border-radius:3px; display:inline-block; flex:none;}
 
@@ -1280,6 +1286,7 @@ function drawRepeat(cur, range){
 
 /* ---------- demography ---------- */
 function hbars(host, items, colorFor, fmt, total, aria){
+  if (!items.length){ host.innerHTML = `<p class="note" style="margin:8px 0 12px">Nothing in this scope</p>`; return; }
   const W = Math.max(240, host.clientWidth), rowH = 30, H = items.length*rowH + 6;
   const labelW = Math.min(150, Math.max(90, W*0.32));
   const max = Math.max(...items.map(d=>d.v), 1);
@@ -1463,7 +1470,7 @@ function drawOrderState(cur, range){
 /* ---------- predictions: forecast + recommended actions ---------- */
 function forecastSeries(get, hi){
   /* history = all months up to the end of the range; seasonal index from the same month a year earlier; trend fitted on deseasonalised values */
-  const hist = agg([0, hi]).months.map(get), n = hist.length;
+  const hist = agg([0, hi]).months.map(get), n = hist.length, fut = hi<24 ? agg([hi, Math.min(24,hi+3)]).months.map(get) : [];
   const last12 = hist.slice(Math.max(0,n-12)), prior12 = hist.slice(Math.max(0,n-24), Math.max(0,n-12));
   const avgPrior = prior12.length ? prior12.reduce((a,b)=>a+b,0)/prior12.length : 0;
   const seas = i => (prior12.length===12 && avgPrior) ? (prior12[i%12]/avgPrior) : 1;
@@ -1471,7 +1478,7 @@ function forecastSeries(get, hi){
   const m = des.length, mean = des.reduce((a,b)=>a+b,0)/(m||1), xm=(m-1)/2;
   const slope = m>1 ? des.reduce((s,v,i)=>s+(i-xm)*(v-mean),0)/des.reduce((s,v,i)=>s+(i-xm)*(i-xm),0) : 0;
   const resid = des.map((v,i)=>v-(mean+slope*(i-xm))), sd = Math.sqrt(resid.reduce((a,b)=>a+b*b,0)/Math.max(1,m-2));
-  const out = [0,1,2].map(k=>{ const i=m+k, base=Math.max(0, mean+slope*(i-xm)), s=seas((n+k)%12); return {mi:hi+k, point: base*s, lo: Math.max(0,(base-1.28*sd)*s), hi: (base+1.28*sd)*s, actual: hi+k<24 ? hist[hi+k] : null}; });
+  const out = [0,1,2].map(k=>{ const i=m+k, base=Math.max(0, mean+slope*(i-xm)), s=seas((n+k)%12); return {mi:hi+k, point: base*s, lo: Math.max(0,(base-1.28*sd)*s), hi: (base+1.28*sd)*s, actual: Number.isFinite(fut[k]) ? fut[k] : null}; });
   return {hist:last12, out, slopePct: mean? slope/mean*100 : 0, sd, cv: mean? sd/mean : 1};
 }
 const monthLabelAfter = mi => { if (mi<24) return NM[mi]; const k=mi-24, mon=["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"]; return mon[k%12]+" "+(26+Math.floor((k+9)/12)); };
@@ -2021,6 +2028,7 @@ function drawChips(){
   if (S.cat>=0) c.push(["Category", CATS[S.cat], ()=>{S.cat=-1}]);
   if (S.q) c.push(["Search", `“${S.q}”`, ()=>{S.q=""; $("#srch").value="";}]);
   const host = $("#chips"); host.innerHTML="";
+  if (!c.length){ const el=document.createElement("span"); el.className="chip scope"; el.innerHTML=`Scope: <b>All India · all channels · all categories</b>`; host.appendChild(el); }
   c.forEach(([l,v,off])=>{
     const el = document.createElement("span"); el.className="chip";
     el.innerHTML = `${l}: <b>${v}</b><button type="button" aria-label="Remove ${l} filter">×</button>`;
