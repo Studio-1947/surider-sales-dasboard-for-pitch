@@ -168,8 +168,9 @@ body{
 .hl button.act .imp small{display:block; font-size:11px; font-weight:400; color:var(--muted); letter-spacing:0; margin-top:2px}
 .hl button.act .bar{width:100%; height:5px; border-radius:3px; background:var(--surface); overflow:hidden; margin-top:2px}
 .hl button.act .bar i{display:block; height:100%; background:var(--accent); border-radius:3px}
-@media(max-width:900px){.hl button.act{grid-template-columns:34px minmax(0,1fr)} .hl button.act .txt{grid-column:2} .hl button.act .aside{grid-column:2; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; text-align:left} .hl button.act .bar{display:none}}
-.hl button.act .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl button.act .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl button.act .conf.lo{color:var(--muted); background:var(--surface)}
+@media(max-width:1150px){.hl button.act{grid-template-columns:34px minmax(0,1fr) 170px} .hl button.act .hi{grid-column:1; grid-row:1} .hl button.act .lead{grid-column:2; grid-row:1} .hl button.act .aside{grid-column:3; grid-row:1} .hl button.act .txt{grid-column:2/4; grid-row:2}}
+@media(max-width:700px){.hl button.act{grid-template-columns:34px minmax(0,1fr)} .hl button.act .txt{grid-column:2; grid-row:2} .hl button.act .aside{grid-column:2; grid-row:3; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; text-align:left} .hl button.act .bar{display:none}}
+.hl button.act .conf.cf-hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl button.act .conf.cf-md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl button.act .conf.cf-lo{color:var(--muted); background:var(--surface)}
 .hl .conf.hi{color:var(--pos); background:color-mix(in srgb,var(--pos) 14%,var(--surface))} .hl .conf.md{color:#8a5a00; background:color-mix(in srgb,var(--s4) 22%,var(--surface))} .hl .conf.lo{color:var(--muted)}
 .pop{position:fixed; z-index:40; background:var(--surface); border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 32px -12px rgba(0,0,0,.4); padding:8px; width:240px;}
 .pop .who{display:flex; gap:10px; align-items:center; padding:8px 8px 10px; border-bottom:1px solid var(--hair); margin-bottom:6px;}
@@ -210,6 +211,7 @@ body{
 .ctabs button .ico{width:14px; height:14px; margin:0}
 .ctabs button .cnt{font-size:10.5px; background:var(--surface-2); color:var(--muted); padding:1px 6px; border-radius:999px; margin-left:2px}
 .ctabs button[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+@media(max-width:700px){.ctabs{flex-wrap:wrap; overflow:visible}}
 .cfilters{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; padding:8px 10px; border:1px solid var(--hair); border-radius:10px; background:var(--surface-2); margin-bottom:14px}
 .cfilters .csearch{flex:1 1 200px; background:var(--surface); max-width:280px}
 .chipgrp{display:inline-flex; align-items:center; gap:2px; background:var(--surface); border-radius:8px; padding:3px; border:1px solid var(--hair); flex-wrap:wrap}
@@ -225,7 +227,7 @@ body{
 .ckpis{margin-bottom:14px}
 .ckpi .k{display:flex; align-items:center; gap:8px; justify-content:space-between}
 .ckpi .k .pi{color:var(--accent)} .ckpi .k .ico{width:14px; height:14px; margin:0}
-.ckpi .d{display:flex; justify-content:space-between; gap:8px; font-size:12px; white-space:normal}
+.ckpi .d{display:flex; justify-content:space-between; gap:4px 8px; font-size:12px; white-space:normal; flex-wrap:wrap; overflow:visible; text-overflow:clip} .ckpi .d span{white-space:normal; min-width:0}
 .cview{min-height:120px}
 .cgrid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
 @media(max-width:1100px){.cgrid2{grid-template-columns:1fr}}
@@ -237,11 +239,11 @@ body{
 .ccards{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px}
 .ccard{border:1px solid var(--hair); border-radius:12px; padding:12px 14px; background:var(--surface); display:flex; flex-direction:column; gap:6px; min-width:0}
 .ccard h4{margin:0; font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.ccard .note{margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.ccard .note{margin:0; white-space:normal; line-height:1.35}
 .ccard .ct{display:flex; flex-wrap:wrap; gap:4px}
 .cthumb{display:flex; align-items:center; gap:10px; min-width:0} .cthumb .th{width:36px; height:36px; border-radius:8px; background:#fff; border:1px solid var(--hair); overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none} .cthumb .th img{width:100%; height:100%; object-fit:contain}
 .cm{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px 8px; margin-top:4px}
-.cm div{display:flex; flex-direction:column; min-width:0} .cm span{font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis} .cm b{font-size:13px; font-weight:600; white-space:nowrap}
+.cm div{display:flex; flex-direction:column; min-width:0} .cm span{font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); white-space:normal; line-height:1.25} .cm b{font-size:13px; font-weight:600; white-space:nowrap}
 .ctag{display:inline-block; font-size:10.5px; font-weight:600; padding:2px 7px; border-radius:999px; background:var(--surface-2); color:var(--ink-2)}
 .ctag.obj{background:color-mix(in srgb,var(--s1) 14%,var(--surface)); color:var(--s1)} .ctag.fmt{background:color-mix(in srgb,var(--s7) 14%,var(--surface)); color:var(--s7)}
 .ctag.good{background:color-mix(in srgb,var(--pos) 14%,var(--surface)); color:var(--pos)} .ctag.warn{background:color-mix(in srgb,var(--s4) 20%,var(--surface)); color:#8a5a00} .ctag.bad{background:color-mix(in srgb,var(--neg) 14%,var(--surface)); color:var(--neg)} .ctag.muted{color:var(--muted)}
@@ -270,7 +272,7 @@ body{
 
 /* ---------- movers ---------- */
 .movers{display:grid; grid-template-columns:1fr 1fr; gap:6px 28px;}
-@media(max-width:700px){.movers{grid-template-columns:1fr}}
+@media(max-width:1000px){.movers{grid-template-columns:1fr}}
 .mv{display:grid; grid-template-columns:32px 1fr 84px; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid var(--hair); font-size:13px;}
 .mv .th{width:32px;height:32px;border-radius:7px;background:#fff;border:1px solid var(--hair);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;}
 .mv .th img{width:100%;height:100%;object-fit:contain;display:block}
@@ -313,7 +315,7 @@ body{
 
 /* ---------- map ---------- */
 .maplay{display:grid; grid-template-columns:minmax(280px,460px) minmax(0,1fr); gap:28px; align-items:start;}
-@media(max-width:760px){.maplay{grid-template-columns:1fr}}
+@media(max-width:760px){.maplay{grid-template-columns:minmax(0,1fr)}}
 .st{fill:var(--surface-2); stroke:var(--surface); stroke-width:1.2; transition:fill .2s; cursor:pointer;}
 .st:hover{stroke:var(--accent); stroke-width:1.5;}
 .st.on{stroke:var(--accent); stroke-width:2;}
@@ -342,8 +344,9 @@ th .ico{width:12px; height:12px; margin-right:4px; vertical-align:-1px; opacity:
 .pinsum .pi .ico{width:17px; height:17px; margin:0}
 .tblfoot{font-size:12px; color:var(--muted); padding:8px 2px 0}
 .linkbtn{all:unset; cursor:pointer; color:var(--accent); font-weight:600; text-decoration:underline}
-@media(max-width:1150px){.distlay,.pinlay,.maplay{grid-template-columns:1fr} .distlay>div:first-child,.pinlay>.plot,.maplay>#map{max-width:480px; margin:0 auto; width:100%}}
-@media(max-width:1100px){#distTbl th:nth-child(5),#distTbl td:nth-child(5),#distTbl th:nth-child(7),#distTbl td:nth-child(7){display:none} #distState th:nth-child(n+3):nth-child(-n+6),#distState td:nth-child(n+3):nth-child(-n+6){display:none}}
+@media(max-width:1150px){.distlay,.pinlay,.maplay{grid-template-columns:minmax(0,1fr)} .distlay>div:first-child,.pinlay>.plot,.maplay>#map{max-width:480px; margin:0 auto; width:100%}}
+#distTbl th,#distTbl td{padding:6px 5px}
+@media(max-width:1100px){#distTbl th:nth-child(6),#distTbl td:nth-child(6){display:none} #distState th:nth-child(n+3):nth-child(-n+6),#distState td:nth-child(n+3):nth-child(-n+6){display:none}}
 .pinsum{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
 .pinsum .v{white-space:nowrap}
 #distTbl th,#distTbl td{padding:6px 6px; font-size:12.5px}
@@ -393,7 +396,9 @@ select{
 /* ---------- kpi ---------- */
 .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(126px,1fr)); gap:12px; margin-bottom:20px;}
 .kpis.k4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-@media(max-width:560px){.kpis{grid-template-columns:1fr}}
+@media(max-width:1150px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))} .kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))} .kpis .kpi .k,.kpis .kpi .d{white-space:normal; overflow:visible; text-overflow:clip; line-height:1.3}}
+@media(max-width:800px){.kpis.k4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr} .kpis.k4{grid-template-columns:1fr 1fr} .pinsum,.pinsum.withico{grid-template-columns:1fr 1fr}}
 .kpi{
   background:var(--surface); border:1px solid var(--ring); border-radius:12px;
   padding:14px 15px 12px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:2px;
@@ -1529,7 +1534,7 @@ function drawActions(cur, prv, range){
   const total=acts.reduce((a,x)=>a+x.impact,0);
   $("#actNote").textContent = `${acts.length} actions worth an estimated ${fmtC(total)} in ${perLabel()} terms · impacts are modelled (recovery, reactivation and reallocation rates are assumptions to validate) · ranked by rupee impact`;
   const maxImp = acts.length ? acts[0].impact : 1;
-  host.innerHTML = acts.map((a,i)=>`<button type="button" class="exc act"><span class="hi">${a.ico}</span><div class="body"><div class="lead"><div class="k"><span class="rank">${i+1}</span>${a.t}</div><div class="v">${a.v}</div></div><div class="txt"><div><div class="lbl">Why</div><div class="why">${a.why}</div></div><div><div class="lbl">What to do</div><div class="do">${a.do}</div></div></div><div class="aside"><div class="imp">≈ ${fmtC(a.impact)}<small>${fmtP(pct(a.impact,total))} of the total · ${perLabel()}</small></div><div class="bar"><i style="width:${pct(a.impact,maxImp).toFixed(1)}%"></i></div><span class="conf ${a.conf}">${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] } confidence</span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
+  host.innerHTML = acts.map((a,i)=>`<button type="button" class="exc act"><span class="hi">${a.ico}</span><div class="body"><div class="lead"><div class="k"><span class="rank">${i+1}</span>${a.t}</div><div class="v">${a.v}</div></div><div class="txt"><div><div class="lbl">Why</div><div class="why">${a.why}</div></div><div><div class="lbl">What to do</div><div class="do">${a.do}</div></div></div><div class="aside"><div class="imp">≈ ${fmtC(a.impact)}<small>${fmtP(pct(a.impact,total))} of the total · ${perLabel()}</small></div><div class="bar"><i style="width:${pct(a.impact,maxImp).toFixed(1)}%"></i></div><span class="conf cf-${a.conf}">${ {hi:"High",md:"Medium",lo:"Low"}[a.conf] } confidence</span></div></div></button>`).join("") || `<p class="note">Nothing to recommend for this scope.</p>`;
 }
 
 /* ---------- year-on-year comparison ---------- */
@@ -1671,9 +1676,9 @@ function drawHealth(range, dp){
    ["New-IBO retention", newIBOs.length?fmtP(pct(kept.length,newIBOs.length)):"n/a", `${kept.length} of ${newIBOs.length} recent joiners still active in the last 3 months`],["Time to first sale", med(inScope.map(x=>x.ttf))+" days", `median across the scope · Diamond ${med(inScope.filter(x=>x.t===0).map(x=>x.ttf))||"–"} d, Bronze ${med(inScope.filter(x=>x.t===3).map(x=>x.ttf))||"–"} d`]
   ].forEach(([k,v,s])=>{ const card=document.createElement("div"); card.className="kpi"; card.innerHTML=`<div class="k">${k}</div><div class="v">${v}</div><div class="d" style="white-space:normal;line-height:1.3;color:var(--muted)">${s}</div>`; host.appendChild(card); });
   const hc=$("#activeChart"), W=Math.max(320,hc.clientWidth), H=230, M={t:12,r:12,b:28,l:44}, iw=W-M.l-M.r, ih=H-M.t-M.b, g=[];
-  const counts = mons.map(m=>inScope.filter(x=>activeIn(x,m)).length), joins = mons.map(m=>inScope.filter(x=>joinedM(x)===m).length), top = Math.max(...counts,1)*1.15;
+  const counts = mons.map(m=>inScope.filter(x=>activeIn(x,m)).length), joins = mons.map(m=>inScope.filter(x=>joinedM(x)===m).length), ticks=niceTicks(Math.max(...counts,1)*1.15), top = ticks[ticks.length-1];
   const sy=v=>M.t+ih-v/top*ih, bw=Math.min(40, iw/mons.length*0.55), cx=i=>M.l+(i+0.5)/mons.length*iw;
-  niceTicks(top).forEach(t=>{ g.push(e("line",{x1:M.l,x2:W-M.r,y1:sy(t),y2:sy(t),style:"stroke:var(--hair)"})); g.push(e("text",{x:M.l-8,y:sy(t)+4,"text-anchor":"end",style:"fill:var(--muted);font-size:11px"},[txt(fmtN(t))])); });
+  ticks.forEach(t=>{ g.push(e("line",{x1:M.l,x2:W-M.r,y1:sy(t),y2:sy(t),style:"stroke:var(--hair)"})); g.push(e("text",{x:M.l-8,y:sy(t)+4,"text-anchor":"end",style:"fill:var(--muted);font-size:11px"},[txt(fmtN(t))])); });
   counts.forEach((v,i)=>{ const r=e("rect",{x:cx(i)-bw/2,y:sy(v),width:bw,height:Math.max(0,M.t+ih-sy(v)),rx:4,style:"fill:var(--accent)"}); r.addEventListener("mousemove",ev=>tipShow(`<span class="t">${NM[mons[i]]}</span>`+tipRow("Active",fmtN(v))+tipRow("Active rate",fmtP(actRate[i]))+tipRow("Joined",fmtN(joins[i])),ev)); r.addEventListener("mouseleave",tipHide); g.push(r);
     if (joins[i]) g.push(e("rect",{x:cx(i)-bw/2,y:sy(v)-4-joins[i]/top*ih,width:bw,height:joins[i]/top*ih,rx:2,style:"fill:var(--s4)"}));
     if (i % (W<560 ? Math.ceil(mons.length/6) : 1) === 0) g.push(e("text",{x:cx(i),y:H-8,"text-anchor":"middle",style:"fill:var(--muted);font-size:11px"},[txt(NM[mons[i]])])); });
@@ -1919,7 +1924,7 @@ function distItems(d, dp, range){
 }
 function drawDistCanvas(d, dp, range){
   const cards=(view,items)=> cardGrid(view, items, x=>`<div class="ccard"><div class="ct">${tag(x.tier, ["diamond","gold","silver","bronze"][x.t])}${tag(x.status, x.status==="Active"?"good":x.status==="Dormant"?"bad":"muted")}${tag(x.place,"muted")}</div><div class="cthumb"><span class="dav" style="background:${TIERCOL[x.t]}">${initials(x.n)}</span><h4>${esc(x.n)}</h4></div><p class="note">${esc(x.state)} · since ${x.j} · time to first sale ${x.ttf} d</p>
-      <div class="cm"><div><span>Revenue</span><b>${fmtC(x.rev)}</b></div><div><span>Orders</span><b>${fmtN(Math.round(x.ord))}</b></div><div><span>Team</span><b>${fmtN(x.team)}</b></div><div><span>Per member</span><b>${fmtC(Math.round(x.rpt),true)}</b></div><div><span>Active months</span><b>${x.activeMonths}/${range[1]-range[0]}</b></div><div><span>YoY</span><b class="${x.yoy===null?"":x.yoy>=0?"up":"down"}">${x.yoy===null?"–":(x.yoy>=0?"+":"")+x.yoy.toFixed(1)+"%"}</b></div></div></div>`, {title:"Distributor cards", note:"Tier, delivery status and location on every card"});
+      <div class="cm"><div><span>Revenue</span><b>${fmtC(x.rev)}</b></div><div><span>Orders</span><b>${fmtN(Math.round(x.ord))}</b></div><div><span>Team</span><b>${fmtN(x.team)}</b></div><div><span>Per member</span><b>${fmtC(Math.round(x.rpt),true)}</b></div><div><span>Active</span><b>${x.activeMonths}/${range[1]-range[0]} mo</b></div><div><span>YoY</span><b class="${x.yoy===null?"":x.yoy>=0?"up":"down"}">${x.yoy===null?"–":(x.yoy>=0?"+":"")+x.yoy.toFixed(1)+"%"}</b></div></div></div>`, {title:"Distributor cards", note:"Tier, delivery status and location on every card"});
   const matrix=(view,items)=> scatter(view, items, {title:"Team size vs revenue", note:"Who converts a downline into sales · bubble size is revenue per team member", x:{key:"team",label:"Team members",fmt:v=>fmtN(Math.round(v))}, y:{key:"rev",label:"Revenue",fmt:v=>fmtC(v)}, r:{key:"rpt",label:"Revenue per member",fmt:v=>fmtC(Math.round(v),true)}, color:x=>TIERCOL[x.t], name:"n", quadrants:["Lean and productive","Big and productive","Small and quiet","Big team, little sale"], legend:DATA.tiers.map((t,i)=>[t,TIERCOL[i]]), extra:x=>tipRow("State",x.state)+tipRow("Status",x.status)});
   const data=(view,items,ctx)=> dataTable(view, items, [{key:"n",label:"Distributor",left:true,fmt:(v,x)=>`<span class="dav" style="background:${TIERCOL[x.t]}">${initials(v)}</span>${esc(v)}`},{key:"place",label:"Location",left:true,fmt:(v,x)=>esc(v)+(x.m<9?`<small style="color:var(--muted)"> · ${esc(x.state)}</small>`:"")},{key:"tier",label:"Tier",left:true,fmt:(v,x)=>`<span class="tier" style="background:${TIERCOL[x.t]}">${TIERICO[x.t]}${v}</span>`},{key:"status",label:"Status",left:true,fmt:v=>tag(v,v==="Active"?"good":v==="Dormant"?"bad":"muted")},{key:"team",label:"Team",fmt:v=>fmtN(v)},{key:"j",label:"Since"},{key:"ttf",label:"First sale",fmt:v=>v+" d"},{key:"activeMonths",label:"Active months"},{key:"rev",label:"Revenue",fmt:v=>fmtC(Math.round(v),true)},{key:"rpt",label:"Per member",fmt:v=>fmtC(Math.round(v),true)},{key:"yoy",label:"YoY",fmt:v=>v===null?"–":`<b class="${v>=0?"up":"down"}">${v>=0?"+":""}${v.toFixed(1)}%</b>`}], ctx, {title:"Full distributor matrix"});
   makeCanvas({ id:"dist", host:"#distCanvas",
@@ -2322,14 +2327,14 @@ function drawDistributors(d, dp){
   $("#distState tbody").innerHTML = byState.map(x=>`<tr class="clickable" data-si="${x.si}" style="${S.state===x.si?"background:var(--accent-soft)":""}"><td>${ICO.pin}${x.s}</td><td>${x.n}</td><td>${x.t[0]||""}</td><td>${x.t[1]||""}</td><td>${x.t[2]||""}</td><td>${x.t[3]||""}</td><td>${fmtN(x.team)}</td><td>${fmtC(x.rev)}</td><td>${fmtC(x.n?x.rev/x.n:0)}</td></tr>`).join("");
   $("#distState tbody").querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",()=>{ const si=+tr.dataset.si; S.state = S.state===si ? -1 : si; syncSelects(); render(); }));
   /* table */
-  const COLS3=[["n",ICO.person+"Distributor"],["m",ICO.pin+"Location"],["t",ICO.gem+"Tier"],["team",ICO.people+"Team"],["j",ICO.cal+"Since"],["rev",ICO.rupee+"Revenue"],["sh",ICO.share+"Share"],["yoy",ICO.trend+"YoY"]];
+  const COLS3=[["n",ICO.person+"Distributor"],["m",ICO.pin+"Location"],["t",ICO.gem+"Tier"],["team",ICO.people+"Team"],["rev",ICO.rupee+"Revenue"],["sh",ICO.share+"Share"],["yoy",ICO.trend+"YoY"]];
   const thead=$("#distTbl thead"), tbody=$("#distTbl tbody");
   thead.innerHTML="<tr>"+COLS3.map(([key,l])=>`<th data-k="${key}" aria-sort="${k===key?(dir<0?"descending":"ascending"):"none"}">${l}${k===key?(dir<0?" ↓":" ↑"):""}</th>`).join("")+"</tr>";
   thead.querySelectorAll("th").forEach(t=>t.addEventListener("click",()=>{ const key=t.dataset.k==="sh"?"rev":t.dataset.k; if(L.distSort===key) L.distDir*=-1; else {L.distSort=key; L.distDir = key==="n"||key==="m"||key==="t"?1:-1;} render(); }));
   const LIMIT = 25, shownRows = L.distAll ? vis : vis.slice(0,LIMIT);
   tbody.innerHTML = shownRows.map(r=>`<tr><td><span class="dav" style="background:${TIERCOL[r.t]}">${initials(r.n)}</span>${r.n}</td><td style="text-align:left">${ICO.pin}${DATA.cities[r.m]}${r.m<9?`<small style="color:var(--muted)"> · ${STATES[r.s]}</small>`:""}</td>
-    <td style="text-align:left"><span class="tier" style="background:${TIERCOL[r.t]}">${TIERICO[r.t]}${TI[r.t]}</span></td><td>${fmtN(r.team)}</td><td>${r.j}</td><td>${fmtC(r.rev)}</td><td>${fmtP(pct(r.rev,tot))}</td>
-    <td class="${r.yoy===null?"":r.yoy>=0?"up":"down"}" style="font-weight:600">${r.yoy===null?"n/a":(r.yoy>=0?"▲ ":"▼ ")+Math.abs(r.yoy).toFixed(1)+"%"}</td></tr>`).join("") || `<tr><td colspan="8" style="text-align:left;color:var(--muted)">No distributors match</td></tr>`;
+    <td style="text-align:left"><span class="tier" style="background:${TIERCOL[r.t]}">${TIERICO[r.t]}${TI[r.t]}</span></td><td>${fmtN(r.team)}</td><td>${fmtC(r.rev)}</td><td>${fmtP(pct(r.rev,tot))}</td>
+    <td class="${r.yoy===null?"":r.yoy>=0?"up":"down"}" style="font-weight:600">${r.yoy===null?"n/a":(r.yoy>=0?"▲ ":"▼ ")+Math.abs(r.yoy).toFixed(1)+"%"}</td></tr>`).join("") || `<tr><td colspan="7" style="text-align:left;color:var(--muted)">No distributors match</td></tr>`;
   $("#distFoot").innerHTML = `${ICO.sort}${L.distAll||vis.length<=LIMIT ? vis.length+" distributors listed" : "Top "+LIMIT+" of "+vis.length+" distributors"} · sorted by ${ {n:"name",m:"location",t:"tier",team:"team size",j:"join year",rev:"revenue",yoy:"year-on-year change"}[k] }` + (vis.length>LIMIT ? ` · <button type="button" class="linkbtn" id="distMore">${L.distAll?"Show top "+LIMIT:"Show all "+vis.length}</button>` : "");
   const mb=$("#distMore"); if (mb) mb.addEventListener("click",()=>{ L.distAll=!L.distAll; render(); });
 }
